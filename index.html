@@ -10,12 +10,6 @@
     <meta name="keywords" content="CS2, skins, cashout, calculadora, Uruguay, Argentina, Brasil, CSFloat, e-Brou, Prex, Midinero, Belo, Pix, Dolar Cripto">
     <meta name="author" content="Mateo Botta">
     
-    <!-- Open Graph (Vistas previas) -->
-    <meta property="og:title" content="Calculadora CS2 | Trade LATAM">
-    <meta property="og:description" content="Descubrí cuánta plata real te queda al vender tus skins. Cotizaciones automáticas para Uruguay, Argentina y Brasil.">
-    <meta property="og:image" content="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbMs8AxhfwvAdwJc-sK4nIGZnvHxDK7DqWdU6sB1teXI8oThxlLmqBA9MWmnJ4eTIAY4Nw7W81W_ku2-jMC-vs6cwXVr7HQmsSzZgVXp1k8Fv0lD">
-    <meta property="og:type" content="website">
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap');
 
@@ -36,7 +30,7 @@
         .visor-skin img:hover { transform: scale(1.05); }
         .skin-nombre { margin-top: 15px; font-size: 16px; font-weight: bold; color: #ffffff; text-align: center; }
 
-        /* --- NUEVO: ESTILOS DEL AVATAR ASESOR --- */
+        /* --- ESTILOS DEL NUEVO AVATAR CUADRADO --- */
         #bot-asesor {
             position: fixed;
             bottom: 30px;
@@ -50,7 +44,7 @@
 
         @keyframes flotar {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-10px); }
         }
 
         .burbuja {
@@ -64,35 +58,29 @@
             border: 1px solid #f99f1b;
             font-weight: 600;
             line-height: 1.4;
-            display: none; /* Se oculta hasta que haya un precio */
+            display: none;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .avatar-icono {
-            width: 60px;
-            height: 60px;
-            background-color: #f99f1b;
-            border-radius: 50%;
-            border: 3px solid #141419;
-            box-shadow: 0 0 20px rgba(249, 159, 27, 0.4);
+            width: 70px;
+            height: 70px;
             cursor: pointer;
-            /* SVG de un robot minimalista */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23141419"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1v2h-1v1a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-1H2v-2h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 12 2zm0 2a1 1 0 0 0-1 1 1 1 0 0 0 1 1 1 1 0 0 0 1-1 1 1 0 0 0-1-1zm-3 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>');
-            background-size: 60%;
+            /* Código SVG para dibujar al robot cuadrado naranja */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>');
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
             transition: transform 0.2s ease;
+            filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3));
         }
 
         .avatar-icono:hover {
             transform: scale(1.1);
         }
         
-        .texto-destacado {
-            color: #f99f1b;
-            font-weight: 700;
-        }
+        .texto-destacado { color: #f99f1b; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -130,7 +118,6 @@
                 </div>
                 <div class="input-group" style="flex: 1;">
                     <label>Precio (USD)</label>
-                    <!-- Al escribir, se dispara el cálculo de ganancia y la recomendación del bot -->
                     <input type="number" id="precioUSD" placeholder="0.00" oninput="calcular(); pensarRecomendacion();">
                 </div>
             </div>
@@ -158,10 +145,10 @@
         </div>
     </div>
 
-    <!-- EL AVATAR ASESOR -->
+    <!-- EL AVATAR CUADRADO -->
     <div id="bot-asesor">
-        <div class="burbuja" id="burbujaTexto">¡Hola! Soy tu asistente de cashout.</div>
-        <div class="avatar-icono" onclick="saludar()"></div>
+        <div class="burbuja" id="burbujaTexto"></div>
+        <div class="avatar-icono" onclick="saludarAutomatico()"></div>
     </div>
 
     <script>
@@ -174,16 +161,12 @@
 
         function seleccionarSkin() {
             let seleccion = document.getElementById('buscadorSkins').value;
-            let inputPrecio = document.getElementById('precioUSD');
-
             if (baseDeSkins[seleccion]) {
                 document.getElementById('imagenSkin').src = baseDeSkins[seleccion].img;
                 document.getElementById('imagenSkin').style.opacity = "1";
                 document.getElementById('imagenSkin').style.maxHeight = "180px";
                 document.getElementById('nombreSkinTexto').innerText = seleccion;
-                inputPrecio.value = baseDeSkins[seleccion].precio;
-                
-                // Disparamos las funciones de cálculo
+                document.getElementById('precioUSD').value = baseDeSkins[seleccion].precio;
                 calcular();
                 pensarRecomendacion();
             }
@@ -204,27 +187,31 @@
                 if (pais === 'UY') {
                     document.getElementById('metodoCobro').innerHTML = opcionesUY;
                     document.getElementById('labelCotizacion').innerText = "Cotización (UYU)";
-                    let respuesta = await fetch('https://open.er-api.com/v6/latest/USD');
-                    let datos = await respuesta.json();
-                    inputCotizacion.value = datos.rates.UYU.toFixed(2);
+                    let res = await fetch('https://open.er-api.com/v6/latest/USD');
+                    let data = await res.json();
+                    inputCotizacion.value = data.rates.UYU.toFixed(2);
                 } else if (pais === 'AR') {
                     document.getElementById('metodoCobro').innerHTML = opcionesAR;
                     document.getElementById('labelCotizacion').innerText = "Dólar Cripto (ARS)";
-                    let respuesta = await fetch('https://dolarapi.com/v1/dolares/cripto');
-                    let datos = await respuesta.json();
-                    inputCotizacion.value = datos.compra.toFixed(2);
+                    let res = await fetch('https://dolarapi.com/v1/dolares/cripto');
+                    let data = await res.json();
+                    inputCotizacion.value = data.compra.toFixed(2);
                 } else if (pais === 'BR') {
                     document.getElementById('metodoCobro').innerHTML = opcionesBR;
                     document.getElementById('labelCotizacion').innerText = "Cotización (BRL)";
-                    let respuesta = await fetch('https://open.er-api.com/v6/latest/USD');
-                    let datos = await respuesta.json();
-                    inputCotizacion.value = datos.rates.BRL.toFixed(2);
+                    let res = await fetch('https://open.er-api.com/v6/latest/USD');
+                    let data = await res.json();
+                    inputCotizacion.value = data.rates.BRL.toFixed(2);
                 }
-                calcular();
-                pensarRecomendacion();
-            } catch (error) {
-                inputCotizacion.value = "Error";
-            }
+                
+                // Hablar automáticamente al cargar o cambiar de país
+                if (document.getElementById('precioUSD').value === "") {
+                    saludarAutomatico();
+                } else {
+                    calcular();
+                    pensarRecomendacion();
+                }
+            } catch (error) { inputCotizacion.value = "Error"; }
         }
 
         function calcular() {
@@ -248,78 +235,75 @@
             else if (metodo === 'pix_exchange') { usdLimpio -= saldoEnPlataforma * 0.015; }
 
             if (usdLimpio < 0) usdLimpio = 0;
-            let monedaFinal = usdLimpio * cotizacion;
-            let simbolo = pais === 'UY' ? '$U' : (pais === 'AR' ? 'ARS$' : 'R$');
-
             document.getElementById('resultadoUSD').innerText = "USD " + usdLimpio.toFixed(2);
-            document.getElementById('resultadoLocal').innerText = simbolo + " " + monedaFinal.toFixed(2);
+            document.getElementById('resultadoLocal').innerText = (pais === 'UY' ? '$U' : (pais === 'AR' ? 'ARS$' : 'R$')) + " " + (usdLimpio * cotizacion).toFixed(2);
         }
 
-        // --- LÓGICA DEL AVATAR ---
+        // --- LÓGICA DEL AVATAR MULTILINGÜE ---
+        function mostrarMensajeAvatar(texto) {
+            let burbuja = document.getElementById('burbujaTexto');
+            burbuja.style.display = "block";
+            burbuja.innerHTML = texto;
+            setTimeout(() => { burbuja.style.opacity = "1"; }, 50);
+        }
+
+        function saludarAutomatico() {
+            let pais = document.getElementById('pais').value;
+            if (document.getElementById('precioUSD').value === "") {
+                if (pais === 'BR') {
+                    mostrarMensajeAvatar("Olá! Escreva o preço da sua skin e eu te ajudo a escolher a opção com menos taxas.");
+                } else {
+                    mostrarMensajeAvatar("¡Hola! Escribí el precio de un arma y te calculo por dónde te conviene sacar la plata.");
+                }
+            }
+        }
+
         function pensarRecomendacion() {
             let pais = document.getElementById('pais').value;
             let precio = parseFloat(document.getElementById('precioUSD').value);
             let comision = parseFloat(document.getElementById('comisionPlataforma').value);
-            let burbuja = document.getElementById('burbujaTexto');
 
             if(isNaN(precio) || precio <= 0) {
-                burbuja.style.display = "none";
-                burbuja.style.opacity = "0";
+                document.getElementById('burbujaTexto').style.opacity = "0";
+                setTimeout(() => { document.getElementById('burbujaTexto').style.display = "none"; }, 300);
                 return;
             }
 
             let saldoEnPlataforma = precio - (precio * (comision / 100));
             let maxUsd = -1;
             let mejorMetodo = "";
-
-            // Arrays para evaluar
             let opciones = [];
-            let nombresLegibles = {};
+            let nombres = {};
 
             if (pais === 'UY') {
                 opciones = ['prex_payoneer', 'prex_paypal', 'ebrou_banco', 'midinero_paypal'];
-                nombresLegibles = { 'prex_payoneer': 'Prex (Payoneer)', 'prex_paypal': 'Prex (PayPal)', 'ebrou_banco': 'e-Brou', 'midinero_paypal': 'Midinero' };
+                nombres = { 'prex_payoneer': 'Prex (Payoneer)', 'prex_paypal': 'Prex (PayPal)', 'ebrou_banco': 'e-Brou', 'midinero_paypal': 'Midinero' };
             } else if (pais === 'AR') {
                 opciones = ['belo_cripto', 'lemon_cripto'];
-                nombresLegibles = { 'belo_cripto': 'Belo', 'lemon_cripto': 'Lemon Cash' };
+                nombres = { 'belo_cripto': 'Belo', 'lemon_cripto': 'Lemon Cash' };
             } else if (pais === 'BR') {
                 opciones = ['pix_exchange'];
-                nombresLegibles = { 'pix_exchange': 'Pix' };
+                nombres = { 'pix_exchange': 'Pix' };
             }
 
-            // Algoritmo de optimización: Evaluamos cuál deja más dólares
             for (let i = 0; i < opciones.length; i++) {
-                let metodoActual = opciones[i];
-                let usdTemporal = saldoEnPlataforma;
+                let metodo = opciones[i];
+                let usdTemp = saldoEnPlataforma;
+                if (metodo === 'prex_payoneer') usdTemp -= saldoEnPlataforma * 0.02;
+                else if (metodo === 'prex_paypal') usdTemp -= (8 * 1.22);
+                else if (metodo === 'ebrou_banco') usdTemp -= 1.50;
+                else if (metodo === 'midinero_paypal') usdTemp -= saldoEnPlataforma * 0.035;
+                else if (metodo === 'belo_cripto') usdTemp -= saldoEnPlataforma * 0.015;
+                else if (metodo === 'lemon_cripto') usdTemp -= saldoEnPlataforma * 0.02;
+                else if (metodo === 'pix_exchange') usdTemp -= saldoEnPlataforma * 0.015;
 
-                if (metodoActual === 'prex_payoneer') usdTemporal -= saldoEnPlataforma * 0.02;
-                else if (metodoActual === 'prex_paypal') usdTemporal -= (8 * 1.22);
-                else if (metodoActual === 'ebrou_banco') usdTemporal -= 1.50;
-                else if (metodoActual === 'midinero_paypal') usdTemporal -= saldoEnPlataforma * 0.035;
-                else if (metodoActual === 'belo_cripto') usdTemporal -= saldoEnPlataforma * 0.015;
-                else if (metodoActual === 'lemon_cripto') usdTemporal -= saldoEnPlataforma * 0.02;
-                else if (metodoActual === 'pix_exchange') usdTemporal -= saldoEnPlataforma * 0.015;
-
-                // Guardar el mayor valor encontrado
-                if (usdTemporal > maxUsd) {
-                    maxUsd = usdTemporal;
-                    mejorMetodo = nombresLegibles[metodoActual];
-                }
+                if (usdTemp > maxUsd) { maxUsd = usdTemp; mejorMetodo = nombres[metodo]; }
             }
 
-            burbuja.style.display = "block";
-            // Timeout pequeño para dar el efecto de aparición
-            setTimeout(() => { burbuja.style.opacity = "1"; }, 50);
-            
-            burbuja.innerHTML = `Para retirar esos <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, te conviene usar <span class="texto-destacado">${mejorMetodo}</span>. ¡Es la opción con menos comisiones!`;
-        }
-
-        function saludar() {
-            let burbuja = document.getElementById('burbujaTexto');
-            if (document.getElementById('precioUSD').value === "") {
-                burbuja.style.display = "block";
-                setTimeout(() => { burbuja.style.opacity = "1"; }, 50);
-                burbuja.innerText = "¡Hola! Escribí el precio de un arma y te calculo por dónde te conviene sacar la plata.";
+            if (pais === 'BR') {
+                mostrarMensajeAvatar(`Para sacar esses <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, é melhor usar <span class="texto-destacado">${mejorMetodo}</span>. É a opção com menos taxas!`);
+            } else {
+                mostrarMensajeAvatar(`Para retirar esos <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, te conviene usar <span class="texto-destacado">${mejorMetodo}</span>. ¡Es la opción con menos comisiones!`);
             }
         }
     </script>
