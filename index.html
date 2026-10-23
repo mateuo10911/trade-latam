@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade LATAM | Panel de Skins</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Chakra Petch', sans-serif;
+            background-color: #0d0d12;
+            background-image: radial-gradient(circle at top, #1a1a24 0%, #0d0d12 80%);
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .contenedor-principal {
+            display: flex;
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .panel {
+            background-color: #141419;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            border-top: 4px solid #f99f1b;
+            border-bottom: 1px solid #2a2a35;
+            flex: 1;
+            min-width: 320px;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 22px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #2a2a35;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #a0a0aa;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #2a2a35;
+            border-radius: 4px;
+            background-color: #09090c;
+            color: #ffffff;
+            box-sizing: border-box;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #f99f1b;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f99f1b;
+            color: #000000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-top: 15px;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        button:hover {
+            background-color: #ffb443;
+        }
+
+        .resultados {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #2a2a35;
+        }
+
+        .resultado-texto {
+            font-size: 22px;
+            margin: 5px 0 15px 0;
+            color: #f99f1b;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(249, 159, 27, 0.3);
+        }
+
+        /* Estilos del visualizador de Skin */
+        .visor-skin {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #09090c;
+            border: 1px solid #2a2a35;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            min-height: 200px;
+        }
+
+        .visor-skin img {
+            max-width: 100%;
+            height: auto;
+            max-height: 180px;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .visor-skin img:hover {
+            transform: scale(1.05);
+        }
+
+        .skin-nombre {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor-principal">
+
+        <!-- PANEL IZQUIERDO: MERCADO DE SKINS -->
+        <div class="panel">
+            <h2>Mercado de Skins</h2>
+
+            <div class="input-group">
+                <label>Buscar Arma</label>
+                <input list="listaSkins" id="buscadorSkins" placeholder="Ej: AWP Asiimov..."
+                    oninput="seleccionarSkin()">
+                <datalist id="listaSkins">
+                    <option value="AK-47 | Redline (Field-Tested)"></option>
+                    <option value="AWP | Asiimov (Field-Tested)"></option>
+                    <option value="M4A1-S | Printstream (Minimal Wear)"></option>
+                    <option value="Karambit | Doppler (Factory New)"></option>
+                </datalist>
+            </div>
+
+            <div class="visor-skin" id="visorSkin">
+                <img id="imagenSkin"
+                    src="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXQ9QVcJY8gulReQ0DFSua4xJ2VDxl0Kw1cve2jMlw4gaWbcT9H69m3q4qOmb3ye-uIxzIE7ZMl0u3E8YmtiQzsqRdlMjuiLY-QIAA-YlnTr1S9"
+                    alt="Logo CS2" style="max-height: 100px; opacity: 0.5;">
+                <div class="skin-nombre" id="nombreSkinTexto">Seleccioná un arma para ver su valor</div>
+            </div>
+        </div>
+
+        <!-- PANEL DERECHO: CALCULADORA FINANCIERA -->
+        <div class="panel">
+            <h2>Calculadora de Retiro</h2>
+
+            <div style="display: flex; gap: 10px;">
+                <div class="input-group" style="flex: 1;">
+                    <label>País</label>
+                    <select id="pais" onchange="actualizarPais()">
+                        <option value="UY">Uruguay</option>
+                        <option value="AR">Argentina</option>
+                        <option value="BR">Brasil</option>
+                    </select>
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label>Precio (USD)</label>
+                    <input type="number" id="precioUSD" placeholder="0.00">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Pasarela y Tarjeta</label>
+                <select id="metodoCobro"></select>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <div class="input-group" style="flex: 1;">
+                    <label>Comisión Mercado (%)</label>
+                    <input type="number" id="comisionPlataforma" value="2">
+                </div>
+                <div class="input-group" style="flex: 1;">
+                    <label id="labelCotizacion">Cotización</label>
+                    <input type="text" id="cotizacionLocal" value="Cargando...">
+                </div>
+            </div>
+
+            <button onclick="calcular()">Calcular Ganancia Neta</button>
+
+            <div class="resultados">
+                <label>Recibís limpio en USD:</label>
+                <p class="resultado-texto" id="resultadoUSD">USD 0.00</p>
+
+                <label>Equivalente en cuenta:</label>
+                <p class="resultado-texto" id="resultadoLocal" style="margin-bottom: 0;">$ 0.00</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // BASE DE DATOS LOCAL CON FOTOS REALES DE STEAM
+        const baseDeSkins = {
+            "AK-47 | Redline (Field-Tested)": {
+                precio: 15.50,
+                img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpRoqOXtPq_SmlRc68J_n-6S8I-g2VHk-kA9YGinJo2ccwA3MwyBq1W4le_mgMLt75_Jmyc3uyM8pSGKrS2L5g"
+            },
+            "AWP | Asiimov (Field-Tested)": {
+                precio: 125.00,
+                img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zLZAJA7cW5moWfqPbhJbTQqW9e-sB_ntbX9Zj0l78-iS26eZmXcVM2YFlS85O7x-_q15--v8jIzCBm7iFxsH2JmUapwUYbRQs6yqE"
+            },
+            "M4A1-S | Printstream (Minimal Wear)": {
+                precio: 85.00,
+                img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhjxszfjDdO09C_k4if2a_2Y-rVxG4D-8AnjO_HotTzi1DtrUU9NjzyLNSUcAI6YFCDrAO5leu70ZK-vJibzSdr-yMw53vVk0G3jB0fauM90-beHA"
+            },
+            "Karambit | Doppler (Factory New)": {
+                precio: 1200.00,
+                img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbMs8AxhfwvAdwJc-sK4nIGZnvHxDK7DqWdU6sB1teXI8oThxlLmqBA9MWmnJ4eTIAY4Nw7W81W_ku2-jMC-vs6cwXVr7HQmsSzZgVXp1k8Fv0lD"
+            }
+        };
+
+        function seleccionarSkin() {
+            let seleccion = document.getElementById('buscadorSkins').value;
+            let imgElement = document.getElementById('imagenSkin');
+            let txtElement = document.getElementById('nombreSkinTexto');
+            let inputPrecio = document.getElementById('precioUSD');
+
+            if (baseDeSkins[seleccion]) {
+                imgElement.src = baseDeSkins[seleccion].img;
+                imgElement.style.opacity = "1";
+                imgElement.style.maxHeight = "180px";
+                txtElement.innerText = seleccion;
+                inputPrecio.value = baseDeSkins[seleccion].precio;
+            }
+        }
+
+        const opcionesUY = `
+            <option value="prex_payoneer">Prex (vía Payoneer) - 2%</option>
+            <option value="prex_paypal">Prex (vía PayPal) - USD 8 + IVA</option>
+            <option value="ebrou_banco">e-Brou (Transferencia) - USD 1.50</option>
+            <option value="midinero_paypal">Midinero (vía PayPal) - 3.5%</option>
+        `;
+        const opcionesAR = `
+            <option value="belo_cripto">Belo (Cripto a ARS) - 1.5%</option>
+            <option value="lemon_cripto">Lemon Cash (Cripto) - 2%</option>
+        `;
+        const opcionesBR = `
+            <option value="pix_exchange">Pix (vía Exchange) - 1.5%</option>
+        `;
+
+        window.onload = function () {actualizarPais();};
+
+        async function actualizarPais() {
+            let pais = document.getElementById('pais').value;
+            let selectMetodo = document.getElementById('metodoCobro');
+            let labelCotizacion = document.getElementById('labelCotizacion');
+            let inputCotizacion = document.getElementById('cotizacionLocal');
+
+            inputCotizacion.value = "Cargando...";
+
+            try {
+                if (pais === 'UY') {
+                    selectMetodo.innerHTML = opcionesUY;
+                    labelCotizacion.innerText = "Cotización (UYU)";
+                    let respuesta = await fetch('https://open.er-api.com/v6/latest/USD');
+                    let datos = await respuesta.json();
+                    inputCotizacion.value = datos.rates.UYU.toFixed(2);
+                } else if (pais === 'AR') {
+                    selectMetodo.innerHTML = opcionesAR;
+                    labelCotizacion.innerText = "Dólar Cripto (ARS)";
+                    let respuesta = await fetch('https://dolarapi.com/v1/dolares/cripto');
+                    let datos = await respuesta.json();
+                    inputCotizacion.value = datos.compra.toFixed(2);
+                } else if (pais === 'BR') {
+                    selectMetodo.innerHTML = opcionesBR;
+                    labelCotizacion.innerText = "Cotización (BRL)";
+                    let respuesta = await fetch('https://open.er-api.com/v6/latest/USD');
+                    let datos = await respuesta.json();
+                    inputCotizacion.value = datos.rates.BRL.toFixed(2);
+                }
+            } catch (error) {
+                console.error("Error API:", error);
+                inputCotizacion.value = "Error";
+            }
+        }
+
+        function calcular() {
+            let pais = document.getElementById('pais').value;
+            let precio = parseFloat(document.getElementById('precioUSD').value);
+            let comision = parseFloat(document.getElementById('comisionPlataforma').value);
+            let cotizacion = parseFloat(document.getElementById('cotizacionLocal').value);
+            let metodo = document.getElementById('metodoCobro').value;
+
+            if (isNaN(precio) || precio <= 0 || isNaN(cotizacion)) {
+                alert("Faltan datos.");
+                return;
+            }
+
+            let saldoEnPlataforma = precio - (precio * (comision / 100));
+            let usdLimpio = saldoEnPlataforma;
+
+            if (metodo === 'prex_payoneer') {usdLimpio -= saldoEnPlataforma * 0.02;}
+            else if (metodo === 'prex_paypal') {usdLimpio -= (8 * 1.22);}
+            else if (metodo === 'ebrou_banco') {usdLimpio -= 1.50;}
+            else if (metodo === 'midinero_paypal') {usdLimpio -= saldoEnPlataforma * 0.035;}
+            else if (metodo === 'belo_cripto') {usdLimpio -= saldoEnPlataforma * 0.015;}
+            else if (metodo === 'lemon_cripto') {usdLimpio -= saldoEnPlataforma * 0.02;}
+            else if (metodo === 'pix_exchange') {usdLimpio -= saldoEnPlataforma * 0.015;}
+
+            if (usdLimpio < 0) usdLimpio = 0;
+            let monedaFinal = usdLimpio * cotizacion;
+            let simbolo = pais === 'UY' ? '$U' : (pais === 'AR' ? 'ARS$' : 'R$');
+
+            document.getElementById('resultadoUSD').innerText = "USD " + usdLimpio.toFixed(2);
+            document.getElementById('resultadoLocal').innerText = simbolo + " " + monedaFinal.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>
