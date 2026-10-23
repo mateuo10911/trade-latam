@@ -19,6 +19,7 @@
         .panel-ancho { width: 100%; flex-basis: 100%; display: flex; gap: 20px; flex-wrap: wrap; }
         
         h2 { margin-top: 0; text-align: center; font-size: 24px; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; border-bottom: 1px dashed #2a2a35; padding-bottom: 15px; width: 100%; }
+        .subtitulo-explicativo { color: #8a8a96; font-size: 14px; text-align: center; margin-top: -15px; margin-bottom: 25px; width: 100%; line-height: 1.5; }
         .input-group { margin-bottom: 20px; flex: 1; min-width: 200px; }
         label { display: block; margin-bottom: 8px; font-size: 13px; color: #8a8a96; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         input, select { width: 100%; padding: 12px; border: 1px solid #2a2a35; border-radius: 6px; background-color: #070709; color: #ffffff; box-sizing: border-box; font-family: 'Chakra Petch', sans-serif; font-size: 16px; transition: all 0.3s ease; }
@@ -111,6 +112,8 @@
         <!-- PANEL 3: SIMULADOR Y PREMIUM -->
         <div class="panel panel-ancho">
             <h2>Simulador de Rentabilidad (ROI)</h2>
+            <p class="subtitulo-explicativo">Calcula tu ganancia real cruzando tu inversión inicial con el precio de venta actual, descontando automáticamente todas las comisiones de retiro.</p>
+            
             <div style="flex: 1; min-width: 250px;">
                 <div class="input-group">
                     <label>¿A cuánto compraste el arma? (USD)</label>
@@ -155,7 +158,7 @@
             "Sport Gloves | Vice (Field-Tested)": { precio: 950.00 }
         };
 
-        let usdLimpioGlobal = 0; // Variable para compartir con el ROI
+        let usdLimpioGlobal = 0; 
 
         function cargarListaSkins() {
             let datalist = document.getElementById('listaSkins');
