@@ -25,15 +25,15 @@
         .resultados { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #2a2a35; }
         .resultado-texto { font-size: 26px; margin: 5px 0 20px 0; color: #f99f1b; font-weight: 700; text-shadow: 0 0 15px rgba(249, 159, 27, 0.4); }
         
-        /* NUEVO DISEÑO TIPOGRÁFICO PARA EL ARMA */
         .visor-texto { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #070709; border: 1px solid #2a2a35; border-radius: 8px; padding: 30px; margin-top: 25px; min-height: 150px; text-align: center; }
         .skin-nombre { font-size: 22px; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
         .skin-precio-base { font-size: 18px; color: #8a8a96; }
         .skin-precio-base span { color: #f99f1b; font-weight: 600; }
+        .texto-ayuda { font-size: 16px; color: #8a8a96; line-height: 1.5; }
 
         #bot-asesor { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: flex-end; gap: 15px; z-index: 1000; animation: flotar 4s ease-in-out infinite; }
         @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .burbuja { background-color: #1a1a24; color: #e0e0e0; padding: 15px; border-radius: 12px 12px 0 12px; font-size: 14px; max-width: 220px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); border: 1px solid #f99f1b; font-weight: 600; line-height: 1.4; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .burbuja { background-color: #1a1a24; color: #e0e0e0; padding: 15px; border-radius: 12px 12px 0 12px; font-size: 14px; max-width: 250px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); border: 1px solid #f99f1b; font-weight: 600; line-height: 1.4; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .avatar-icono { width: 70px; height: 70px; cursor: pointer; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>'); background-size: contain; background-position: center; background-repeat: no-repeat; transition: transform 0.2s ease; filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3)); }
         .avatar-icono:hover { transform: scale(1.1); }
         .texto-destacado { color: #f99f1b; font-weight: 700; }
@@ -50,10 +50,10 @@
                 <datalist id="listaSkins"></datalist>
             </div>
             
-            <!-- NUEVO CONTENEDOR DE TEXTO EN LUGAR DE LA IMAGEN -->
             <div class="visor-texto" id="visorTexto">
-                <div class="skin-nombre" id="nombreSkinTexto">Esperando selección...</div>
-                <div class="skin-precio-base" id="precioSkinTexto">Valor de mercado: <span>USD 0.00</span></div>
+                <div class="skin-nombre" id="nombreSkinTexto" style="display: none;"></div>
+                <div class="skin-precio-base" id="precioSkinTexto" style="display: none;"></div>
+                <div class="texto-ayuda" id="textoAyuda">Buscá tu arma en el catálogo.<br><br>Si no está, podés <span class="texto-destacado">ingresar el precio manualmente</span> en la calculadora de la derecha.</div>
             </div>
         </div>
 
@@ -133,7 +133,10 @@
         function seleccionarSkin() {
             let seleccion = document.getElementById('buscadorSkins').value;
             if (baseDeSkins[seleccion]) {
-                // Actualizamos solo los textos sin buscar imágenes
+                document.getElementById('textoAyuda').style.display = "none";
+                document.getElementById('nombreSkinTexto').style.display = "block";
+                document.getElementById('precioSkinTexto').style.display = "block";
+                
                 document.getElementById('nombreSkinTexto').innerText = seleccion;
                 document.getElementById('precioSkinTexto').innerHTML = "Valor de mercado: <span>USD " + baseDeSkins[seleccion].precio.toFixed(2) + "</span>";
                 document.getElementById('precioUSD').value = baseDeSkins[seleccion].precio;
@@ -223,9 +226,9 @@
             let pais = document.getElementById('pais').value;
             if (document.getElementById('precioUSD').value === "") {
                 if (pais === 'BR') {
-                    mostrarMensajeAvatar("Olá! Escreva o preço da sua skin e eu te ajudo a escolher a opção com menos taxas.");
+                    mostrarMensajeAvatar("Olá! Busque sua arma no catálogo ou <span class='texto-destacado'>digite o preço manualmente</span> se não estiver lá. Eu te digo a melhor opção de saque!");
                 } else {
-                    mostrarMensajeAvatar("¡Hola! Escribí el precio de un arma y te calculo por dónde te conviene sacar la plata.");
+                    mostrarMensajeAvatar("¡Hola! Buscá tu arma en el catálogo o <span class='texto-destacado'>ingresá el precio a mano</span> en la calculadora si no está. ¡Te digo por dónde conviene retirar!");
                 }
             }
         }
