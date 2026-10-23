@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade LATAM | Panel de Skins</title>
     
-    <!-- SEO Básico -->
     <meta name="description" content="Calculadora exacta de cashout y comisiones para traders de CS2 en LATAM. Calculá tu ganancia real retirando por e-Brou, Prex, Midinero, Belo o Pix con cotizaciones en vivo.">
     <meta name="keywords" content="CS2, skins, cashout, calculadora, Uruguay, Argentina, Brasil, CSFloat, e-Brou, Prex, Midinero, Belo, Pix, Dolar Cripto">
     <meta name="author" content="Mateo Botta">
@@ -30,62 +29,16 @@
         .visor-skin img:hover { transform: scale(1.05); }
         .skin-nombre { margin-top: 15px; font-size: 16px; font-weight: bold; color: #ffffff; text-align: center; }
 
-        /* --- ESTILOS DEL NUEVO AVATAR CUADRADO --- */
-        #bot-asesor {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            align-items: flex-end;
-            gap: 15px;
-            z-index: 1000;
-            animation: flotar 4s ease-in-out infinite;
-        }
-
-        @keyframes flotar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .burbuja {
-            background-color: #1a1a24;
-            color: #e0e0e0;
-            padding: 15px;
-            border-radius: 12px 12px 0 12px;
-            font-size: 14px;
-            max-width: 220px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-            border: 1px solid #f99f1b;
-            font-weight: 600;
-            line-height: 1.4;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .avatar-icono {
-            width: 70px;
-            height: 70px;
-            cursor: pointer;
-            /* Código SVG para dibujar al robot cuadrado naranja */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: transform 0.2s ease;
-            filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3));
-        }
-
-        .avatar-icono:hover {
-            transform: scale(1.1);
-        }
-        
+        #bot-asesor { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: flex-end; gap: 15px; z-index: 1000; animation: flotar 4s ease-in-out infinite; }
+        @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .burbuja { background-color: #1a1a24; color: #e0e0e0; padding: 15px; border-radius: 12px 12px 0 12px; font-size: 14px; max-width: 220px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); border: 1px solid #f99f1b; font-weight: 600; line-height: 1.4; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .avatar-icono { width: 70px; height: 70px; cursor: pointer; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>'); background-size: contain; background-position: center; background-repeat: no-repeat; transition: transform 0.2s ease; filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3)); }
+        .avatar-icono:hover { transform: scale(1.1); }
         .texto-destacado { color: #f99f1b; font-weight: 700; }
     </style>
 </head>
 <body>
 
-    <!-- INTERFAZ PRINCIPAL -->
     <div class="contenedor-principal">
         <div class="panel">
             <h2>Mercado de Skins</h2>
@@ -145,7 +98,6 @@
         </div>
     </div>
 
-    <!-- EL AVATAR CUADRADO -->
     <div id="bot-asesor">
         <div class="burbuja" id="burbujaTexto"></div>
         <div class="avatar-icono" onclick="saludarAutomatico()"></div>
@@ -172,9 +124,23 @@
             }
         }
 
-        const opcionesUY = `<option value="prex_payoneer">Prex (vía Payoneer) - 2%</option><option value="prex_paypal">Prex (vía PayPal) - USD 8 + IVA</option><option value="ebrou_banco">e-Brou (Transferencia) - USD 1.50</option><option value="midinero_paypal">Midinero (vía PayPal) - 3.5%</option>`;
-        const opcionesAR = `<option value="belo_cripto">Belo (Cripto a ARS) - 1.5%</option><option value="lemon_cripto">Lemon Cash (Cripto) - 2%</option>`;
-        const opcionesBR = `<option value="pix_exchange">Pix (vía Exchange) - 1.5%</option>`;
+        const opcionesUY = `
+            <option value="prex_payoneer">Prex (vía Payoneer) - 2%</option>
+            <option value="prex_paypal">Prex (vía PayPal) - USD 8 + IVA</option>
+            <option value="ebrou_banco">e-Brou (Transferencia) - USD 1.50</option>
+            <option value="midinero_paypal">Midinero (vía PayPal) - 3.5%</option>
+        `;
+        const opcionesAR = `
+            <option value="binance_p2p_ar">Binance P2P (USDT/LTC) - ~1%</option>
+            <option value="fiwind_cripto">Fiwind (Cripto a ARS) - ~1%</option>
+            <option value="belo_cripto">Belo (Cripto a ARS) - 1.5%</option>
+            <option value="lemon_cripto">Lemon Cash (Cripto a ARS) - 2%</option>
+        `;
+        const opcionesBR = `
+            <option value="binance_p2p_br">Binance P2P (BRL) - ~1%</option>
+            <option value="pix_exchange">Pix (vía Exchange local) - 1.5%</option>
+            <option value="mercadopago_cripto">Mercado Pago (Cripto a Pix) - ~2%</option>
+        `;
 
         window.onload = function() { actualizarPais(); };
 
@@ -204,7 +170,6 @@
                     inputCotizacion.value = data.rates.BRL.toFixed(2);
                 }
                 
-                // Hablar automáticamente al cargar o cambiar de país
                 if (document.getElementById('precioUSD').value === "") {
                     saludarAutomatico();
                 } else {
@@ -226,20 +191,20 @@
             let saldoEnPlataforma = precio - (precio * (comision / 100));
             let usdLimpio = saldoEnPlataforma;
             
+            // Lógica unificada de descuentos
             if (metodo === 'prex_payoneer') { usdLimpio -= saldoEnPlataforma * 0.02; } 
             else if (metodo === 'prex_paypal') { usdLimpio -= (8 * 1.22); } 
             else if (metodo === 'ebrou_banco') { usdLimpio -= 1.50; } 
             else if (metodo === 'midinero_paypal') { usdLimpio -= saldoEnPlataforma * 0.035; }
-            else if (metodo === 'belo_cripto') { usdLimpio -= saldoEnPlataforma * 0.015; }
-            else if (metodo === 'lemon_cripto') { usdLimpio -= saldoEnPlataforma * 0.02; }
-            else if (metodo === 'pix_exchange') { usdLimpio -= saldoEnPlataforma * 0.015; }
+            else if (metodo === 'belo_cripto' || metodo === 'pix_exchange') { usdLimpio -= saldoEnPlataforma * 0.015; }
+            else if (metodo === 'lemon_cripto' || metodo === 'mercadopago_cripto') { usdLimpio -= saldoEnPlataforma * 0.02; }
+            else if (metodo === 'fiwind_cripto' || metodo === 'binance_p2p_ar' || metodo === 'binance_p2p_br') { usdLimpio -= saldoEnPlataforma * 0.01; } // Aprox 1% en P2P/Network fees
 
             if (usdLimpio < 0) usdLimpio = 0;
             document.getElementById('resultadoUSD').innerText = "USD " + usdLimpio.toFixed(2);
             document.getElementById('resultadoLocal').innerText = (pais === 'UY' ? '$U' : (pais === 'AR' ? 'ARS$' : 'R$')) + " " + (usdLimpio * cotizacion).toFixed(2);
         }
 
-        // --- LÓGICA DEL AVATAR MULTILINGÜE ---
         function mostrarMensajeAvatar(texto) {
             let burbuja = document.getElementById('burbujaTexto');
             burbuja.style.display = "block";
@@ -279,11 +244,11 @@
                 opciones = ['prex_payoneer', 'prex_paypal', 'ebrou_banco', 'midinero_paypal'];
                 nombres = { 'prex_payoneer': 'Prex (Payoneer)', 'prex_paypal': 'Prex (PayPal)', 'ebrou_banco': 'e-Brou', 'midinero_paypal': 'Midinero' };
             } else if (pais === 'AR') {
-                opciones = ['belo_cripto', 'lemon_cripto'];
-                nombres = { 'belo_cripto': 'Belo', 'lemon_cripto': 'Lemon Cash' };
+                opciones = ['binance_p2p_ar', 'fiwind_cripto', 'belo_cripto', 'lemon_cripto'];
+                nombres = { 'binance_p2p_ar': 'Binance P2P', 'fiwind_cripto': 'Fiwind', 'belo_cripto': 'Belo', 'lemon_cripto': 'Lemon Cash' };
             } else if (pais === 'BR') {
-                opciones = ['pix_exchange'];
-                nombres = { 'pix_exchange': 'Pix' };
+                opciones = ['binance_p2p_br', 'pix_exchange', 'mercadopago_cripto'];
+                nombres = { 'binance_p2p_br': 'Binance P2P', 'pix_exchange': 'Pix Exchange', 'mercadopago_cripto': 'Mercado Pago' };
             }
 
             for (let i = 0; i < opciones.length; i++) {
@@ -293,9 +258,9 @@
                 else if (metodo === 'prex_paypal') usdTemp -= (8 * 1.22);
                 else if (metodo === 'ebrou_banco') usdTemp -= 1.50;
                 else if (metodo === 'midinero_paypal') usdTemp -= saldoEnPlataforma * 0.035;
-                else if (metodo === 'belo_cripto') usdTemp -= saldoEnPlataforma * 0.015;
-                else if (metodo === 'lemon_cripto') usdTemp -= saldoEnPlataforma * 0.02;
-                else if (metodo === 'pix_exchange') usdTemp -= saldoEnPlataforma * 0.015;
+                else if (metodo === 'belo_cripto' || metodo === 'pix_exchange') usdTemp -= saldoEnPlataforma * 0.015;
+                else if (metodo === 'lemon_cripto' || metodo === 'mercadopago_cripto') usdTemp -= saldoEnPlataforma * 0.02;
+                else if (metodo === 'fiwind_cripto' || metodo === 'binance_p2p_ar' || metodo === 'binance_p2p_br') usdTemp -= saldoEnPlataforma * 0.01;
 
                 if (usdTemp > maxUsd) { maxUsd = usdTemp; mejorMetodo = nombres[metodo]; }
             }
