@@ -45,12 +45,8 @@
             <div class="input-group">
                 <label>Buscar Arma</label>
                 <input list="listaSkins" id="buscadorSkins" placeholder="Ej: AWP Asiimov..." oninput="seleccionarSkin()">
-                <datalist id="listaSkins">
-                    <option value="AK-47 | Redline (Field-Tested)"></option>
-                    <option value="AWP | Asiimov (Field-Tested)"></option>
-                    <option value="M4A1-S | Printstream (Minimal Wear)"></option>
-                    <option value="Karambit | Doppler (Factory New)"></option>
-                </datalist>
+                <!-- El JavaScript llenará esto automáticamente -->
+                <datalist id="listaSkins"></datalist>
             </div>
             <div class="visor-skin" id="visorSkin">
                 <img id="imagenSkin" src="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXQ9QVcJY8gulReQ0DFSua4xJ2VDxl0Kw1cve2jMlw4gaWbcT9H69m3q4qOmb3ye-uIxzIE7ZMl0u3E8YmtiQzsqRdlMjuiLY-QIAA-YlnTr1S9" alt="Logo CS2" style="max-height: 100px; opacity: 0.5;">
@@ -104,12 +100,34 @@
     </div>
 
     <script>
+        // DICCIONARIO AMPLIADO - Acá podés ir agregando todas las armas que quieras copiando el formato
         const baseDeSkins = {
+            "AK-47 | Slate (Factory New)": { precio: 10.20, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV08ykm4aOhOT9PLXQmlRc7cF4n-SPpI-iigLg80ZvZzryd4_EI1A8YwqFqVXqk-3vjcLq78nIzyE3vSE8pSGKVxO-ugM" },
             "AK-47 | Redline (Field-Tested)": { precio: 15.50, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpRoqOXtPq_SmlRc68J_n-6S8I-g2VHk-kA9YGinJo2ccwA3MwyBq1W4le_mgMLt75_Jmyc3uyM8pSGKrS2L5g" },
+            "AK-47 | Bloodsport (Field-Tested)": { precio: 80.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV09m7hJKOqPX4PLTVnmRE5sFOiOXA9ofwm1-wqEU6Z2r2ItDHIQY7NAqD_Fa-k-26jMK6v5zPzydjuCQq-z-DyG2N6x4" },
+            "AWP | Atheris (Field-Tested)": { precio: 2.50, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zLZAJA7cW5moWfqPv7Ib7um25V4dB8xO2S9NWgigbm_hBsZm2ncYCQcQI7MFzV-ATtley5hJHv6cyYyHRmu3Qn4S6MzBThhg" },
             "AWP | Asiimov (Field-Tested)": { precio: 125.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zLZAJA7cW5moWfqPbhJbTQqW9e-sB_ntbX9Zj0l78-iS26eZmXcVM2YFlS85O7x-_q15--v8jIzCBm7iFxsH2JmUapwUYbRQs6yqE" },
+            "AWP | Dragon Lore (Field-Tested)": { precio: 8500.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zLZAJA7cW5moWfqPbhJbTFkG1u4MBwnPCPpd-g21LnrxY5YjrxddDDI1NvZQuF8Fbrlbu9hJC86MmdmnRm73Z2-z-DyBi0fNwe" },
+            "M4A1-S | Decimator (Field-Tested)": { precio: 12.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITfn2xZ_MhwmjzF_Vh43u22c7N-NAn6LdWUcFc8MAyGrFnpwb3ojJLu6sidmyFmv3Mg536JmxDlxg" },
             "M4A1-S | Printstream (Minimal Wear)": { precio: 85.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhjxszfjDdO09C_k4if2a_2Y-rVxG4D-8AnjO_HotTzi1DtrUU9NjzyLNSUcAI6YFCDrAO5leu70ZK-vJibzSdr-yMw53vVk0G3jB0fauM90-beHA" },
-            "Karambit | Doppler (Factory New)": { precio: 1200.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbMs8AxhfwvAdwJc-sK4nIGZnvHxDK7DqWdU6sB1teXI8oThxlLmqBA9MWmnJ4eTIAY4Nw7W81W_ku2-jMC-vs6cwXVr7HQmsSzZgVXp1k8Fv0lD" }
+            "M4A4 | The Emperor (Field-Tested)": { precio: 14.50, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhnwMzFJTwW09--m5NDzvLwOq-cxD0H7sFz3-qT94qt2lHi8hE9ZDz7doCdIAQ9ZgnSrwTolem5hMC4uZTBmyRnpGB8svJbFqVq" },
+            "USP-S | Neo-Noir (Field-Tested)": { precio: 16.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoo6m1FBRp3_bNdJQ09ti3m4Gfnvf5L6jdl2Vu5Mpjj9bM8Ij8nVn6qRE-Y2H3JYScdFU_NVnU8wS9wrq5hpK5vcjBynZhvCMn4XiIzhKw0xpMcKUx0nE6Ztk" },
+            "Desert Eagle | Printstream (Field-Tested)": { precio: 32.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgIWKkPvxDLDEm2JS4Mp1mO-W9oj22wK2_Uo6ZGylcdLHdgM3ZQ2BqVW5yevmhcK-6JXAznVhuT5iuyht_Y8Gmg" },
+            "Karambit | Doppler (Factory New)": { precio: 1200.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbMs8AxhfwvAdwJc-sK4nIGZnvHxDK7DqWdU6sB1teXI8oThxlLmqBA9MWmnJ4eTIAY4Nw7W81W_ku2-jMC-vs6cwXVr7HQmsSzZgVXp1k8Fv0lD" },
+            "Butterfly Knife | Tiger Tooth (Factory New)": { precio: 1650.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1OrYYiRx-t25l4mflvzxIYTSkW3Nq5XNwsnB9pVy3Hjm-ko_ZTr0I4HIdVM6NFHW_ATvk725gcLutMicn3BluyMg4WGdwUJI3yA4DA" },
+            "Sport Gloves | Vice (Field-Tested)": { precio: 950.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbKsODBX8ObmIhgJ-tG5q4aElvP8J4Tdn2xZ_IsnaeyZrt_1ilGy8xE-Nz2gcY6SdgJtZQmDqVa8ybjpmNO16sjOwXZis3Ei5XnegVXp1kR-rE-O" }
         };
+
+        // Genera las opciones del buscador dinámicamente al cargar
+        function cargarListaSkins() {
+            let datalist = document.getElementById('listaSkins');
+            datalist.innerHTML = ""; // Limpia la lista por las dudas
+            for (let skin in baseDeSkins) {
+                let opcion = document.createElement('option');
+                opcion.value = skin;
+                datalist.appendChild(opcion);
+            }
+        }
 
         function seleccionarSkin() {
             let seleccion = document.getElementById('buscadorSkins').value;
@@ -124,25 +142,14 @@
             }
         }
 
-        const opcionesUY = `
-            <option value="prex_payoneer">Prex (vía Payoneer) - 2%</option>
-            <option value="prex_paypal">Prex (vía PayPal) - USD 8 + IVA</option>
-            <option value="ebrou_banco">e-Brou (Transferencia) - USD 1.50</option>
-            <option value="midinero_paypal">Midinero (vía PayPal) - 3.5%</option>
-        `;
-        const opcionesAR = `
-            <option value="binance_p2p_ar">Binance P2P (USDT/LTC) - ~1%</option>
-            <option value="fiwind_cripto">Fiwind (Cripto a ARS) - ~1%</option>
-            <option value="belo_cripto">Belo (Cripto a ARS) - 1.5%</option>
-            <option value="lemon_cripto">Lemon Cash (Cripto a ARS) - 2%</option>
-        `;
-        const opcionesBR = `
-            <option value="binance_p2p_br">Binance P2P (BRL) - ~1%</option>
-            <option value="pix_exchange">Pix (vía Exchange local) - 1.5%</option>
-            <option value="mercadopago_cripto">Mercado Pago (Cripto a Pix) - ~2%</option>
-        `;
+        const opcionesUY = `<option value="prex_payoneer">Prex (vía Payoneer) - 2%</option><option value="prex_paypal">Prex (vía PayPal) - USD 8 + IVA</option><option value="ebrou_banco">e-Brou (Transferencia) - USD 1.50</option><option value="midinero_paypal">Midinero (vía PayPal) - 3.5%</option>`;
+        const opcionesAR = `<option value="binance_p2p_ar">Binance P2P (USDT/LTC) - ~1%</option><option value="fiwind_cripto">Fiwind (Cripto a ARS) - ~1%</option><option value="belo_cripto">Belo (Cripto a ARS) - 1.5%</option><option value="lemon_cripto">Lemon Cash (Cripto a ARS) - 2%</option>`;
+        const opcionesBR = `<option value="binance_p2p_br">Binance P2P (BRL) - ~1%</option><option value="pix_exchange">Pix (vía Exchange local) - 1.5%</option><option value="mercadopago_cripto">Mercado Pago (Cripto a Pix) - ~2%</option>`;
 
-        window.onload = function() { actualizarPais(); };
+        window.onload = function() { 
+            actualizarPais(); 
+            cargarListaSkins(); // Ejecuta la función del bucle al iniciar
+        };
 
         async function actualizarPais() {
             let pais = document.getElementById('pais').value;
@@ -191,14 +198,13 @@
             let saldoEnPlataforma = precio - (precio * (comision / 100));
             let usdLimpio = saldoEnPlataforma;
             
-            // Lógica unificada de descuentos
             if (metodo === 'prex_payoneer') { usdLimpio -= saldoEnPlataforma * 0.02; } 
             else if (metodo === 'prex_paypal') { usdLimpio -= (8 * 1.22); } 
             else if (metodo === 'ebrou_banco') { usdLimpio -= 1.50; } 
             else if (metodo === 'midinero_paypal') { usdLimpio -= saldoEnPlataforma * 0.035; }
             else if (metodo === 'belo_cripto' || metodo === 'pix_exchange') { usdLimpio -= saldoEnPlataforma * 0.015; }
             else if (metodo === 'lemon_cripto' || metodo === 'mercadopago_cripto') { usdLimpio -= saldoEnPlataforma * 0.02; }
-            else if (metodo === 'fiwind_cripto' || metodo === 'binance_p2p_ar' || metodo === 'binance_p2p_br') { usdLimpio -= saldoEnPlataforma * 0.01; } // Aprox 1% en P2P/Network fees
+            else if (metodo === 'fiwind_cripto' || metodo === 'binance_p2p_ar' || metodo === 'binance_p2p_br') { usdLimpio -= saldoEnPlataforma * 0.01; }
 
             if (usdLimpio < 0) usdLimpio = 0;
             document.getElementById('resultadoUSD').innerText = "USD " + usdLimpio.toFixed(2);
