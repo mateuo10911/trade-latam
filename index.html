@@ -12,22 +12,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap');
 
-        body { font-family: 'Chakra Petch', sans-serif; background-color: #0d0d12; background-image: radial-gradient(circle at top, #1a1a24 0%, #0d0d12 80%); color: #e0e0e0; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .contenedor-principal { display: flex; gap: 20px; max-width: 900px; width: 100%; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
-        .panel { background-color: #141419; padding: 30px; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); border-top: 4px solid #f99f1b; border-bottom: 1px solid #2a2a35; flex: 1; min-width: 320px; }
-        h2 { margin-top: 0; text-align: center; font-size: 22px; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; border-bottom: 1px dashed #2a2a35; padding-bottom: 10px; }
-        .input-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 6px; font-size: 14px; color: #a0a0aa; font-weight: 600; text-transform: uppercase; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #2a2a35; border-radius: 4px; background-color: #09090c; color: #ffffff; box-sizing: border-box; font-family: 'Chakra Petch', sans-serif; font-size: 15px; transition: border-color 0.3s ease; }
-        input:focus, select:focus { outline: none; border-color: #f99f1b; }
-        button { width: 100%; padding: 12px; background-color: #f99f1b; color: #000000; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; font-size: 16px; text-transform: uppercase; margin-top: 15px; font-family: 'Chakra Petch', sans-serif; }
-        button:hover { background-color: #ffb443; }
-        .resultados { margin-top: 25px; padding-top: 20px; border-top: 1px dashed #2a2a35; }
-        .resultado-texto { font-size: 22px; margin: 5px 0 15px 0; color: #f99f1b; font-weight: 700; text-shadow: 0 0 10px rgba(249, 159, 27, 0.3); }
-        .visor-skin { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #09090c; border: 1px solid #2a2a35; border-radius: 8px; padding: 20px; margin-top: 15px; min-height: 200px; }
-        .visor-skin img { max-width: 100%; height: auto; max-height: 180px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); transition: transform 0.3s ease; }
-        .visor-skin img:hover { transform: scale(1.05); }
-        .skin-nombre { margin-top: 15px; font-size: 16px; font-weight: bold; color: #ffffff; text-align: center; }
+        body { font-family: 'Chakra Petch', sans-serif; background-color: #0b0b0f; background-image: radial-gradient(circle at center, #15151f 0%, #0b0b0f 100%); color: #e0e0e0; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .contenedor-principal { display: flex; gap: 25px; max-width: 950px; width: 100%; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+        .panel { background-color: #121216; padding: 35px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); border-top: 4px solid #f99f1b; border-bottom: 1px solid #2a2a35; flex: 1; min-width: 320px; }
+        h2 { margin-top: 0; text-align: center; font-size: 24px; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; border-bottom: 1px dashed #2a2a35; padding-bottom: 15px; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 13px; color: #8a8a96; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #2a2a35; border-radius: 6px; background-color: #070709; color: #ffffff; box-sizing: border-box; font-family: 'Chakra Petch', sans-serif; font-size: 16px; transition: all 0.3s ease; }
+        input:focus, select:focus { outline: none; border-color: #f99f1b; box-shadow: 0 0 10px rgba(249, 159, 27, 0.2); }
+        button { width: 100%; padding: 15px; background-color: #f99f1b; color: #000000; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 18px; text-transform: uppercase; margin-top: 20px; font-family: 'Chakra Petch', sans-serif; transition: all 0.2s ease; letter-spacing: 1px; }
+        button:hover { background-color: #ffb443; transform: translateY(-2px); }
+        .resultados { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #2a2a35; }
+        .resultado-texto { font-size: 26px; margin: 5px 0 20px 0; color: #f99f1b; font-weight: 700; text-shadow: 0 0 15px rgba(249, 159, 27, 0.4); }
+        
+        /* NUEVO DISEÑO TIPOGRÁFICO PARA EL ARMA */
+        .visor-texto { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #070709; border: 1px solid #2a2a35; border-radius: 8px; padding: 30px; margin-top: 25px; min-height: 150px; text-align: center; }
+        .skin-nombre { font-size: 22px; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
+        .skin-precio-base { font-size: 18px; color: #8a8a96; }
+        .skin-precio-base span { color: #f99f1b; font-weight: 600; }
 
         #bot-asesor { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: flex-end; gap: 15px; z-index: 1000; animation: flotar 4s ease-in-out infinite; }
         @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -41,24 +43,25 @@
 
     <div class="contenedor-principal">
         <div class="panel">
-            <h2>Mercado de Skins</h2>
+            <h2>Terminal de Mercado</h2>
             <div class="input-group">
-                <label>Buscar Arma</label>
+                <label>Activo / Arma</label>
                 <input list="listaSkins" id="buscadorSkins" placeholder="Ej: AWP Asiimov..." oninput="seleccionarSkin()">
                 <datalist id="listaSkins"></datalist>
             </div>
-            <div class="visor-skin" id="visorSkin">
-                <!-- Se cambió el enlace por defecto al servidor de Akamai -->
-                <img id="imagenSkin" src="https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXQ9QVcJY8gulReQ0DFSua4xJ2VDxl0Kw1cve2jMlw4gaWbcT9H69m3q4qOmb3ye-uIxzIE7ZMl0u3E8YmtiQzsqRdlMjuiLY-QIAA-YlnTr1S9" alt="Logo CS2" style="max-height: 100px; opacity: 0.5;">
-                <div class="skin-nombre" id="nombreSkinTexto">Seleccioná un arma para ver su valor</div>
+            
+            <!-- NUEVO CONTENEDOR DE TEXTO EN LUGAR DE LA IMAGEN -->
+            <div class="visor-texto" id="visorTexto">
+                <div class="skin-nombre" id="nombreSkinTexto">Esperando selección...</div>
+                <div class="skin-precio-base" id="precioSkinTexto">Valor de mercado: <span>USD 0.00</span></div>
             </div>
         </div>
 
         <div class="panel">
-            <h2>Calculadora de Retiro</h2>
-            <div style="display: flex; gap: 10px;">
+            <h2>Liquidación de Fondos</h2>
+            <div style="display: flex; gap: 15px;">
                 <div class="input-group" style="flex: 1;">
-                    <label>País</label>
+                    <label>Región</label>
                     <select id="pais" onchange="actualizarPais()">
                         <option value="UY">Uruguay</option>
                         <option value="AR">Argentina</option>
@@ -66,29 +69,29 @@
                     </select>
                 </div>
                 <div class="input-group" style="flex: 1;">
-                    <label>Precio (USD)</label>
+                    <label>Monto Base (USD)</label>
                     <input type="number" id="precioUSD" placeholder="0.00" oninput="calcular(); pensarRecomendacion();">
                 </div>
             </div>
             <div class="input-group">
-                <label>Pasarela y Tarjeta</label>
+                <label>Ruta de Extracción</label>
                 <select id="metodoCobro" onchange="calcular()"></select>
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 15px;">
                 <div class="input-group" style="flex: 1;">
-                    <label>Comisión Mercado (%)</label>
+                    <label>Fee Plataforma (%)</label>
                     <input type="number" id="comisionPlataforma" value="2" oninput="calcular(); pensarRecomendacion();">
                 </div>
                 <div class="input-group" style="flex: 1;">
-                    <label id="labelCotizacion">Cotización</label>
+                    <label id="labelCotizacion">Tasa de Cambio</label>
                     <input type="text" id="cotizacionLocal" value="Cargando...">
                 </div>
             </div>
-            <button onclick="calcular()">Calcular Ganancia Neta</button>
+            <button onclick="calcular()">Procesar Cashout</button>
             <div class="resultados">
-                <label>Recibís limpio en USD:</label>
+                <label>Capital Neto (USD):</label>
                 <p class="resultado-texto" id="resultadoUSD">USD 0.00</p>
-                <label>Equivalente en cuenta:</label>
+                <label>Capital Acreditado:</label>
                 <p class="resultado-texto" id="resultadoLocal" style="margin-bottom: 0;">$ 0.00</p>
             </div>
         </div>
@@ -101,20 +104,20 @@
 
     <script>
         const baseDeSkins = {
-            "AK-47 | Slate (Factory New)": { precio: 10.20, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV08ykm4aOhOT9PLXQmlRc7cF4n-SPpI-iigLg80ZvZzryd4_EI1A8YwqFqVXqk-3vjcLq78nIzyE3vSE8pSGKVxO-ugM" },
-            "AK-47 | Redline (Field-Tested)": { precio: 15.50, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09-5lpRoqOXtPq_SmlRc68J_n-6S8I-g2VHk-kA9YGinJo2ccwA3MwyBq1W4le_mgMLt75_Jmyc3uyM8pSGKrS2L5g" },
-            "AK-47 | Bloodsport (Field-Tested)": { precio: 80.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhnwMzJemkV09m7hJKOqPX4PLTVnmRE5sFOiOXA9ofwm1-wqEU6Z2r2ItDHIQY7NAqD_Fa-k-26jMK6v5zPzydjuCQq-z-DyG2N6x4" },
-            "AWP | Atheris (Field-Tested)": { precio: 2.50, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zLZAJA7cW5moWfqPv7Ib7um25V4dB8xO2S9NWgigbm_hBsZm2ncYCQcQI7MFzV-ATtley5hJHv6cyYyHRmu3Qn4S6MzBThhg" },
-            "AWP | Asiimov (Field-Tested)": { precio: 125.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zLZAJA7cW5moWfqPbhJbTQqW9e-sB_ntbX9Zj0l78-iS26eZmXcVM2YFlS85O7x-_q15--v8jIzCBm7iFxsH2JmUapwUYbRQs6yqE" },
-            "AWP | Dragon Lore (Field-Tested)": { precio: 8500.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpotLu8JAllx8zLZAJA7cW5moWfqPbhJbTFkG1u4MBwnPCPpd-g21LnrxY5YjrxddDDI1NvZQuF8Fbrlbu9hJC86MmdmnRm73Z2-z-DyBi0fNwe" },
-            "M4A1-S | Decimator (Field-Tested)": { precio: 12.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhz2v_Nfz5H_uO1gb-Gw_alIITfn2xZ_MhwmjzF_Vh43u22c7N-NAn6LdWUcFc8MAyGrFnpwb3ojJLu6sidmyFmv3Mg536JmxDlxg" },
-            "M4A1-S | Printstream (Minimal Wear)": { precio: 85.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhjxszfjDdO09C_k4if2a_2Y-rVxG4D-8AnjO_HotTzi1DtrUU9NjzyLNSUcAI6YFCDrAO5leu70ZK-vJibzSdr-yMw53vVk0G3jB0fauM90-beHA" },
-            "M4A4 | The Emperor (Field-Tested)": { precio: 14.50, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhnwMzFJTwW09--m5NDzvLwOq-cxD0H7sFz3-qT94qt2lHi8hE9ZDz7doCdIAQ9ZgnSrwTolem5hMC4uZTBmyRnpGB8svJbFqVq" },
-            "USP-S | Neo-Noir (Field-Tested)": { precio: 16.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoo6m1FBRp3_bNdJQ09ti3m4Gfnvf5L6jdl2Vu5Mpjj9bM8Ij8nVn6qRE-Y2H3JYScdFU_NVnU8wS9wrq5hpK5vcjBynZhvCMn4XiIzhKw0xpMcKUx0nE6Ztk" },
-            "Desert Eagle | Printstream (Field-Tested)": { precio: 32.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgIWKkPvxDLDEm2JS4Mp1mO-W9oj22wK2_Uo6ZGylcdLHdgM3ZQ2BqVW5yevmhcK-6JXAznVhuT5iuyht_Y8Gmg" },
-            "Karambit | Doppler (Factory New)": { precio: 1200.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbMs8AxhfwvAdwJc-sK4nIGZnvHxDK7DqWdU6sB1teXI8oThxlLmqBA9MWmnJ4eTIAY4Nw7W81W_ku2-jMC-vs6cwXVr7HQmsSzZgVXp1k8Fv0lD" },
-            "Butterfly Knife | Tiger Tooth (Factory New)": { precio: 1650.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1OrYYiRx-t25l4mflvzxIYTSkW3Nq5XNwsnB9pVy3Hjm-ko_ZTr0I4HIdVM6NFHW_ATvk725gcLutMicn3BluyMg4WGdwUJI3yA4DA" },
-            "Sport Gloves | Vice (Field-Tested)": { precio: 950.00, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbKsODBX8ObmIhgJ-tG5q4aElvP8J4Tdn2xZ_IsnaeyZrt_1ilGy8xE-Nz2gcY6SdgJtZQmDqVa8ybjpmNO16sjOwXZis3Ei5XnegVXp1kR-rE-O" }
+            "AK-47 | Slate (Factory New)": { precio: 10.20 },
+            "AK-47 | Redline (Field-Tested)": { precio: 15.50 },
+            "AK-47 | Bloodsport (Field-Tested)": { precio: 80.00 },
+            "AWP | Atheris (Field-Tested)": { precio: 2.50 },
+            "AWP | Asiimov (Field-Tested)": { precio: 125.00 },
+            "AWP | Dragon Lore (Field-Tested)": { precio: 8500.00 },
+            "M4A1-S | Decimator (Field-Tested)": { precio: 12.00 },
+            "M4A1-S | Printstream (Minimal Wear)": { precio: 85.00 },
+            "M4A4 | The Emperor (Field-Tested)": { precio: 14.50 },
+            "USP-S | Neo-Noir (Field-Tested)": { precio: 16.00 },
+            "Desert Eagle | Printstream (Field-Tested)": { precio: 32.00 },
+            "Karambit | Doppler (Factory New)": { precio: 1200.00 },
+            "Butterfly Knife | Tiger Tooth (Factory New)": { precio: 1650.00 },
+            "Sport Gloves | Vice (Field-Tested)": { precio: 950.00 }
         };
 
         function cargarListaSkins() {
@@ -130,13 +133,9 @@
         function seleccionarSkin() {
             let seleccion = document.getElementById('buscadorSkins').value;
             if (baseDeSkins[seleccion]) {
-                // TRUCO: Reemplazamos Cloudflare por Akamai para evadir el bloqueo
-                let urlLimpia = baseDeSkins[seleccion].img.replace("community.cloudflare.steamstatic.com", "steamcommunity-a.akamaihd.net");
-
-                document.getElementById('imagenSkin').src = urlLimpia;
-                document.getElementById('imagenSkin').style.opacity = "1";
-                document.getElementById('imagenSkin').style.maxHeight = "180px";
+                // Actualizamos solo los textos sin buscar imágenes
                 document.getElementById('nombreSkinTexto').innerText = seleccion;
+                document.getElementById('precioSkinTexto').innerHTML = "Valor de mercado: <span>USD " + baseDeSkins[seleccion].precio.toFixed(2) + "</span>";
                 document.getElementById('precioUSD').value = baseDeSkins[seleccion].precio;
                 
                 calcular();
