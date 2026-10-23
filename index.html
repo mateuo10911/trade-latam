@@ -8,7 +8,6 @@
     <meta name="description" content="Calculadora exacta de cashout y comisiones para traders de CS2 en LATAM. Calculá tu ganancia real retirando por e-Brou, Prex, Midinero, Belo o Pix con cotizaciones en vivo.">
     <meta name="keywords" content="CS2, skins, cashout, calculadora, Uruguay, Argentina, Brasil, CSFloat, e-Brou, Prex, Midinero, Belo, Pix, Dolar Cripto">
     <meta name="author" content="Mateo Botta">
-    <meta name="referrer" content="no-referrer">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap');
@@ -49,7 +48,8 @@
                 <datalist id="listaSkins"></datalist>
             </div>
             <div class="visor-skin" id="visorSkin">
-                <img id="imagenSkin" src="https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXQ9QVcJY8gulReQ0DFSua4xJ2VDxl0Kw1cve2jMlw4gaWbcT9H69m3q4qOmb3ye-uIxzIE7ZMl0u3E8YmtiQzsqRdlMjuiLY-QIAA-YlnTr1S9" alt="Logo CS2" style="max-height: 100px; opacity: 0.5;">
+                <!-- Se cambió el enlace por defecto al servidor de Akamai -->
+                <img id="imagenSkin" src="https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXQ9QVcJY8gulReQ0DFSua4xJ2VDxl0Kw1cve2jMlw4gaWbcT9H69m3q4qOmb3ye-uIxzIE7ZMl0u3E8YmtiQzsqRdlMjuiLY-QIAA-YlnTr1S9" alt="Logo CS2" style="max-height: 100px; opacity: 0.5;">
                 <div class="skin-nombre" id="nombreSkinTexto">Seleccioná un arma para ver su valor</div>
             </div>
         </div>
@@ -127,14 +127,13 @@
             }
         }
 
-        // FUNCION ACTUALIZADA CON EL PROXY PARA SALTAR EL BLOQUEO
         function seleccionarSkin() {
             let seleccion = document.getElementById('buscadorSkins').value;
             if (baseDeSkins[seleccion]) {
-                let urlOriginal = baseDeSkins[seleccion].img;
-                let urlProxy = "https://wsrv.nl/?url=" + encodeURIComponent(urlOriginal);
+                // TRUCO: Reemplazamos Cloudflare por Akamai para evadir el bloqueo
+                let urlLimpia = baseDeSkins[seleccion].img.replace("community.cloudflare.steamstatic.com", "steamcommunity-a.akamaihd.net");
 
-                document.getElementById('imagenSkin').src = urlProxy;
+                document.getElementById('imagenSkin').src = urlLimpia;
                 document.getElementById('imagenSkin').style.opacity = "1";
                 document.getElementById('imagenSkin').style.maxHeight = "180px";
                 document.getElementById('nombreSkinTexto').innerText = seleccion;
