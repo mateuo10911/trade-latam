@@ -532,12 +532,14 @@
     </div>
 
     <!-- SCRIPT DE FIREBASE -->
+    - SCRIPT DE FIREBASE -->
     <script type="module">
         import {initializeApp} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import {getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import {getFirestore, doc, getDoc, setDoc} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCg2uYRUxcRWZVB9PEtk1Hx2DPxwarC-AE",
+            apiKey: "PEGÁ_TU_CLAVE_EXACTA_ACÁ", // No olvides poner tu clave real
             authDomain: "trade-latam-68fad.firebaseapp.com",
             projectId: "trade-latam-68fad",
             storageBucket: "trade-latam-68fad.firebasestorage.app",
@@ -548,9 +550,9 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // Eventos vinculados directamente en JS con reporte de error técnico
         document.getElementById('btnLogin').addEventListener('click', () => {
             signInWithPopup(auth, provider).catch((error) => {
                 console.error("Error al iniciar sesión:", error);
@@ -559,25 +561,53 @@
         });
 
         document.getElementById('btnSalir').addEventListener('click', () => {
-            signOut(auth).catch((error) => {
-                console.error("Error al cerrar sesión:", error);
-            });
+            signOut(auth).catch((error) => console.error("Error al cerrar sesión:", error));
         });
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             const btnLogin = document.getElementById('btnLogin');
             const userProfile = document.getElementById('userProfile');
             const userPhoto = document.getElementById('userPhoto');
             const userName = document.getElementById('userName');
+            const cajaPremium = document.querySelector('.caja-premium');
 
             if (user) {
                 btnLogin.style.display = 'none';
                 userProfile.style.display = 'flex';
                 userPhoto.src = user.photoURL;
                 userName.innerText = user.displayName.split(' ')[0];
+
+                // Registro y verificación en Firestore
+                const userRef = doc(db, "usuarios", user.uid);
+                let userSnap = await getDoc(userRef);
+
+                if (!userSnap.exists()) {
+                    await setDoc(userRef, {
+                        nombre: user.displayName,
+                        email: user.email,
+                        isPremium: false
+                    });
+                    userSnap = await getDoc(userRef);
+                }
+
+                const userData = userSnap.data();
+
+                if (userData.isPremium) {
+                    cajaPremium.innerHTML = `
+                        <h3 style="margin-top: 0; color: #ffffff;">Gestor de Portafolio</h3>
+                        <p style="color: #00e676; font-size: 14px; font-weight: bold;">✓ Nivel Premium Activado</p>
+                        <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">El guardado en la nube está habilitado para tu cuenta.</p>
+                        <button class="btn-accion" style="margin-top: 0;" onclick="alert('Función de guardado en desarrollo')">Guardar Simulación</button>
+                    `;
+                }
             } else {
                 btnLogin.style.display = 'flex';
                 userProfile.style.display = 'none';
+                cajaPremium.innerHTML = `
+                    <h3 style="margin-top: 0; color: #ffffff;">Gestor de Portafolio</h3>
+                    <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">Guardá tu inventario completo, rastreá tus ganancias históricas y creá proyecciones a largo plazo.</p>
+                    <button class="btn-premium" onclick="alertaPremium()">Probar 3 días gratis</button>
+                `;
             }
         });
     </script>
