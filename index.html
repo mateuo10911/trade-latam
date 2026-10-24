@@ -534,12 +534,12 @@
     <!-- SCRIPT DE FIREBASE -->
     - SCRIPT DE FIREBASE -->
     <script type="module">
-        import {initializeApp} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-        import {getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-        import {getFirestore, doc, getDoc, setDoc} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "PEGÁ_TU_CLAVE_EXACTA_ACÁ", // No olvides poner tu clave real
+            apiKey: "AIzaSyCg2uYRUxCRwZVB9PEtk1Hx2DPxwarC-AE", // No olvides poner tu clave real
             authDomain: "trade-latam-68fad.firebaseapp.com",
             projectId: "trade-latam-68fad",
             storageBucket: "trade-latam-68fad.firebasestorage.app",
@@ -615,20 +615,20 @@
     <!-- SCRIPT DE LA CALCULADORA -->
     <script>
         const baseDeSkins = {
-            "AK-47 | Slate (Factory New)": {precio: 10.20},
-            "AK-47 | Redline (Field-Tested)": {precio: 15.50},
-            "AK-47 | Bloodsport (Field-Tested)": {precio: 80.00},
-            "AWP | Atheris (Field-Tested)": {precio: 2.50},
-            "AWP | Asiimov (Field-Tested)": {precio: 125.00},
-            "AWP | Dragon Lore (Field-Tested)": {precio: 8500.00},
-            "M4A1-S | Decimator (Field-Tested)": {precio: 12.00},
-            "M4A1-S | Printstream (Minimal Wear)": {precio: 85.00},
-            "M4A4 | The Emperor (Field-Tested)": {precio: 14.50},
-            "USP-S | Neo-Noir (Field-Tested)": {precio: 16.00},
-            "Desert Eagle | Printstream (Field-Tested)": {precio: 32.00},
-            "Karambit | Doppler (Factory New)": {precio: 1200.00},
-            "Butterfly Knife | Tiger Tooth (Factory New)": {precio: 1650.00},
-            "Sport Gloves | Vice (Field-Tested)": {precio: 950.00}
+            "AK-47 | Slate (Factory New)": { precio: 10.20 },
+            "AK-47 | Redline (Field-Tested)": { precio: 15.50 },
+            "AK-47 | Bloodsport (Field-Tested)": { precio: 80.00 },
+            "AWP | Atheris (Field-Tested)": { precio: 2.50 },
+            "AWP | Asiimov (Field-Tested)": { precio: 125.00 },
+            "AWP | Dragon Lore (Field-Tested)": { precio: 8500.00 },
+            "M4A1-S | Decimator (Field-Tested)": { precio: 12.00 },
+            "M4A1-S | Printstream (Minimal Wear)": { precio: 85.00 },
+            "M4A4 | The Emperor (Field-Tested)": { precio: 14.50 },
+            "USP-S | Neo-Noir (Field-Tested)": { precio: 16.00 },
+            "Desert Eagle | Printstream (Field-Tested)": { precio: 32.00 },
+            "Karambit | Doppler (Factory New)": { precio: 1200.00 },
+            "Butterfly Knife | Tiger Tooth (Factory New)": { precio: 1650.00 },
+            "Sport Gloves | Vice (Field-Tested)": { precio: 950.00 }
         };
 
         let usdLimpioGlobal = 0;
@@ -698,7 +698,7 @@
                 } else {
                     calcular();
                 }
-            } catch (error) {inputCotizacion.value = "Error";}
+            } catch (error) { inputCotizacion.value = "Error"; }
         }
 
         function calcular() {
@@ -713,13 +713,13 @@
             let saldoEnPlataforma = precio - (precio * (comision / 100));
             usdLimpioGlobal = saldoEnPlataforma;
 
-            if (metodo === 'prex_payoneer') {usdLimpioGlobal -= saldoEnPlataforma * 0.02;}
-            else if (metodo === 'prex_paypal') {usdLimpioGlobal -= (8 * 1.22);}
-            else if (metodo === 'ebrou_banco') {usdLimpioGlobal -= 1.50;}
-            else if (metodo === 'midinero_paypal') {usdLimpioGlobal -= saldoEnPlataforma * 0.035;}
-            else if (metodo === 'belo_cripto' || metodo === 'pix_exchange') {usdLimpioGlobal -= saldoEnPlataforma * 0.015;}
-            else if (metodo === 'lemon_cripto' || metodo === 'mercadopago_cripto') {usdLimpioGlobal -= saldoEnPlataforma * 0.02;}
-            else if (metodo === 'fiwind_cripto' || metodo === 'binance_p2p_ar' || metodo === 'binance_p2p_br') {usdLimpioGlobal -= saldoEnPlataforma * 0.01;}
+            if (metodo === 'prex_payoneer') { usdLimpioGlobal -= saldoEnPlataforma * 0.02; }
+            else if (metodo === 'prex_paypal') { usdLimpioGlobal -= (8 * 1.22); }
+            else if (metodo === 'ebrou_banco') { usdLimpioGlobal -= 1.50; }
+            else if (metodo === 'midinero_paypal') { usdLimpioGlobal -= saldoEnPlataforma * 0.035; }
+            else if (metodo === 'belo_cripto' || metodo === 'pix_exchange') { usdLimpioGlobal -= saldoEnPlataforma * 0.015; }
+            else if (metodo === 'lemon_cripto' || metodo === 'mercadopago_cripto') { usdLimpioGlobal -= saldoEnPlataforma * 0.02; }
+            else if (metodo === 'fiwind_cripto' || metodo === 'binance_p2p_ar' || metodo === 'binance_p2p_br') { usdLimpioGlobal -= saldoEnPlataforma * 0.01; }
 
             if (usdLimpioGlobal < 0) usdLimpioGlobal = 0;
             document.getElementById('resultadoUSD').innerText = "USD " + usdLimpioGlobal.toFixed(2);
@@ -764,7 +764,7 @@
             let burbuja = document.getElementById('burbujaTexto');
             burbuja.style.display = "block";
             burbuja.innerHTML = texto;
-            setTimeout(() => {burbuja.style.opacity = "1";}, 50);
+            setTimeout(() => { burbuja.style.opacity = "1"; }, 50);
         }
 
         function saludarAutomatico() {
@@ -784,7 +784,7 @@
 
             if (isNaN(precio) || precio <= 0) {
                 document.getElementById('burbujaTexto').style.opacity = "0";
-                setTimeout(() => {document.getElementById('burbujaTexto').style.display = "none";}, 300);
+                setTimeout(() => { document.getElementById('burbujaTexto').style.display = "none"; }, 300);
                 return;
             }
 
@@ -795,13 +795,13 @@
 
             if (pais === 'UY') {
                 opciones = ['prex_payoneer', 'prex_paypal', 'ebrou_banco', 'midinero_paypal'];
-                nombres = {'prex_payoneer': 'Prex (Payoneer)', 'prex_paypal': 'Prex (PayPal)', 'ebrou_banco': 'e-Brou', 'midinero_paypal': 'Midinero'};
+                nombres = { 'prex_payoneer': 'Prex (Payoneer)', 'prex_paypal': 'Prex (PayPal)', 'ebrou_banco': 'e-Brou', 'midinero_paypal': 'Midinero' };
             } else if (pais === 'AR') {
                 opciones = ['binance_p2p_ar', 'fiwind_cripto', 'belo_cripto', 'lemon_cripto'];
-                nombres = {'binance_p2p_ar': 'Binance P2P', 'fiwind_cripto': 'Fiwind', 'belo_cripto': 'Belo', 'lemon_cripto': 'Lemon Cash'};
+                nombres = { 'binance_p2p_ar': 'Binance P2P', 'fiwind_cripto': 'Fiwind', 'belo_cripto': 'Belo', 'lemon_cripto': 'Lemon Cash' };
             } else if (pais === 'BR') {
                 opciones = ['binance_p2p_br', 'pix_exchange', 'mercadopago_cripto'];
-                nombres = {'binance_p2p_br': 'Binance P2P', 'pix_exchange': 'Pix Exchange', 'mercadopago_cripto': 'Mercado Pago'};
+                nombres = { 'binance_p2p_br': 'Binance P2P', 'pix_exchange': 'Pix Exchange', 'mercadopago_cripto': 'Mercado Pago' };
             }
 
             for (let i = 0; i < opciones.length; i++) {
@@ -815,7 +815,7 @@
                 else if (metodo === 'lemon_cripto' || metodo === 'mercadopago_cripto') usdTemp -= saldoEnPlataforma * 0.02;
                 else if (metodo === 'fiwind_cripto' || metodo === 'binance_p2p_ar' || metodo === 'binance_p2p_br') usdTemp -= saldoEnPlataforma * 0.01;
 
-                if (usdTemp > maxUsd) {maxUsd = usdTemp; mejorMetodo = nombres[metodo];}
+                if (usdTemp > maxUsd) { maxUsd = usdTemp; mejorMetodo = nombres[metodo]; }
             }
 
             if (pais === 'BR') {
