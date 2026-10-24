@@ -8,6 +8,7 @@
     <meta name="description" content="Calculadora exacta de cashout y comisiones para traders de CS2 en LATAM. Calculá tu ganancia real retirando por e-Brou, Prex, Midinero, Belo o Pix con cotizaciones en vivo.">
     <meta name="keywords" content="CS2, skins, cashout, calculadora, Uruguay, Argentina, Brasil, CSFloat, e-Brou, Prex, Midinero, Belo, Pix, Dolar Cripto">
     <meta name="author" content="Mateo Botta">
+    
     <!-- Metaetiquetas para compartir en redes (Open Graph) -->
     <meta property="og:title" content="Trade LATAM | Calculadora de Cashout CS2">
     <meta property="og:description" content="Calculá tu ganancia real y el ROI de tus skins de CS2. Cotizaciones en vivo para Uruguay, Argentina y Brasil.">
@@ -19,9 +20,23 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap');
 
-        body { font-family: 'Chakra Petch', sans-serif; background-color: #0b0b0f; background-image: radial-gradient(circle at center, #15151f 0%, #0b0b0f 100%); color: #e0e0e0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; margin: 0; padding: 40px 20px; }
-        .contenedor-principal { display: flex; gap: 25px; max-width: 950px; width: 100%; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+        body { font-family: 'Chakra Petch', sans-serif; background-color: #0b0b0f; background-image: radial-gradient(circle at center, #15151f 0%, #0b0b0f 100%); color: #e0e0e0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 0 20px 40px 20px; }
         
+        /* BARRA SUPERIOR Y LOGIN */
+        .top-bar { width: 100%; max-width: 950px; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #2a2a35; margin-bottom: 30px; }
+        .logo { font-size: 22px; font-weight: 700; color: #ffffff; letter-spacing: 1px; }
+        .logo span { color: #f99f1b; }
+        .auth-container { display: flex; align-items: center; gap: 15px; }
+        .btn-login { background-color: #ffffff; color: #000000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-family: 'Chakra Petch', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.2s ease; }
+        .btn-login:hover { background-color: #f0f0f0; }
+        .btn-login img { width: 18px; }
+        .user-profile { display: none; align-items: center; gap: 12px; background-color: #121216; padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid #2a2a35; }
+        .user-profile img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #f99f1b; }
+        .user-profile span { font-weight: 600; font-size: 14px; }
+        .btn-logout { background: none; border: none; color: #8a8a96; cursor: pointer; font-family: 'Chakra Petch'; font-size: 12px; text-decoration: underline; padding: 0; margin-left: 10px; }
+        .btn-logout:hover { color: #ff1744; }
+
+        .contenedor-principal { display: flex; gap: 25px; max-width: 950px; width: 100%; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
         .panel { background-color: #121216; padding: 35px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); border-top: 4px solid #f99f1b; border-bottom: 1px solid #2a2a35; flex: 1; min-width: 320px; }
         .panel-ancho { width: 100%; flex-basis: 100%; display: flex; gap: 20px; flex-wrap: wrap; }
         
@@ -48,10 +63,10 @@
         .caja-premium { background: linear-gradient(135deg, #15151f 0%, #070709 100%); border: 1px dashed #8a8a96; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; flex: 1; min-width: 250px; position: relative; overflow: hidden; }
         .caja-premium::before { content: '🔒 PREMIUM'; position: absolute; top: 10px; right: 10px; font-size: 11px; color: #8a8a96; font-weight: bold; background: #2a2a35; padding: 4px 8px; border-radius: 4px; }
         
-        #bot-asesor { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: flex-end; gap: 15px; z-index: 1000; animation: flotar 4s ease-in-out infinite; }
+        #bot-asesor { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: flex-end; gap: 15px; z-index: 1000; animation: flotar 4s ease-in-out infinite; pointer-events: none; }
         @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .burbuja { background-color: #1a1a24; color: #e0e0e0; padding: 15px; border-radius: 12px 12px 0 12px; font-size: 14px; max-width: 250px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); border: 1px solid #f99f1b; font-weight: 600; line-height: 1.4; display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .avatar-icono { width: 70px; height: 70px; cursor: pointer; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>'); background-size: contain; background-position: center; background-repeat: no-repeat; transition: transform 0.2s ease; filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3)); }
+        .avatar-icono { width: 70px; height: 70px; cursor: pointer; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>'); background-size: contain; background-position: center; background-repeat: no-repeat; transition: transform 0.2s ease; filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3)); pointer-events: auto; }
         .avatar-icono:hover { transform: scale(1.1); }
         .texto-destacado { color: #f99f1b; font-weight: 700; }
         .texto-verde { color: #00e676; }
@@ -60,8 +75,22 @@
 </head>
 <body>
 
+    <div class="top-bar">
+        <div class="logo">TRADE<span>LATAM</span></div>
+        <div class="auth-container">
+            <button class="btn-login" id="btnLogin" onclick="iniciarSesion()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
+                Iniciar Sesión
+            </button>
+            <div class="user-profile" id="userProfile">
+                <img id="userPhoto" src="" alt="Avatar">
+                <span id="userName">Usuario</span>
+                <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
+            </div>
+        </div>
+    </div>
+
     <div class="contenedor-principal">
-        <!-- PANEL 1: MERCADO -->
         <div class="panel">
             <h2>Terminal de Mercado</h2>
             <div class="input-group">
@@ -77,7 +106,6 @@
             </div>
         </div>
 
-        <!-- PANEL 2: CASHOUT -->
         <div class="panel">
             <h2>Liquidación de Fondos</h2>
             <div style="display: flex; gap: 15px;">
@@ -116,7 +144,6 @@
             </div>
         </div>
 
-        <!-- PANEL 3: SIMULADOR Y PREMIUM -->
         <div class="panel panel-ancho">
             <h2>Simulador de Rentabilidad (ROI)</h2>
             <p class="subtitulo-explicativo">Calcula tu ganancia real cruzando tu inversión inicial con el precio de venta actual, descontando automáticamente todas las comisiones de retiro.</p>
@@ -147,6 +174,57 @@
         <div class="avatar-icono" onclick="saludarAutomatico()"></div>
     </div>
 
+    <!-- SCRIPT DE FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+
+        // Credenciales extraídas de tu captura
+        const firebaseConfig = {
+            apiKey: "AIzaSyCg2uYRUxCRwZVB9PEtk1Hx2DPxwarC-AE",
+            authDomain: "trade-latam-68fad.firebaseapp.com",
+            projectId: "trade-latam-68fad",
+            storageBucket: "trade-latam-68fad.firebasestorage.app",
+            messagingSenderId: "968253351389",
+            appId: "1:968253351389:web:321cd68f74405446fb0234",
+            measurementId: "G-3XM9XN70JS"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.iniciarSesion = function() {
+            signInWithPopup(auth, provider).catch((error) => {
+                console.error("Error al iniciar sesión:", error);
+            });
+        };
+
+        window.cerrarSesion = function() {
+            signOut(auth).catch((error) => {
+                console.error("Error al cerrar sesión:", error);
+            });
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            const btnLogin = document.getElementById('btnLogin');
+            const userProfile = document.getElementById('userProfile');
+            const userPhoto = document.getElementById('userPhoto');
+            const userName = document.getElementById('userName');
+
+            if (user) {
+                btnLogin.style.display = 'none';
+                userProfile.style.display = 'flex';
+                userPhoto.src = user.photoURL;
+                userName.innerText = user.displayName.split(' ')[0]; // Muestra solo el primer nombre
+            } else {
+                btnLogin.style.display = 'flex';
+                userProfile.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- SCRIPT DE LA CALCULADORA -->
     <script>
         const baseDeSkins = {
             "AK-47 | Slate (Factory New)": { precio: 10.20 },
@@ -360,7 +438,12 @@
         }
         
         function alertaPremium() {
-            alert("Redirigiendo a la pasarela de suscripción... (Acá iría el checkout de Stripe o Mercado Pago)");
+            const userProfile = document.getElementById('userProfile');
+            if (userProfile.style.display === 'flex') {
+                alert("¡Hola " + document.getElementById('userName').innerText + "! Redirigiendo a Mercado Pago para procesar tu suscripción de 1 USD/mes...");
+            } else {
+                alert("Por favor, iniciá sesión con Google arriba a la derecha antes de solicitar la prueba de 3 días gratis.");
+            }
         }
     </script>
 </body>
