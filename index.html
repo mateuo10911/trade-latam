@@ -1,75 +1,414 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade LATAM | Panel de Skins</title>
-    
-    <meta name="description" content="Calculadora exacta de cashout y comisiones para traders de CS2 en LATAM. Calculá tu ganancia real retirando por e-Brou, Prex, Midinero, Belo o Pix con cotizaciones en vivo.">
-    <meta name="keywords" content="CS2, skins, cashout, calculadora, Uruguay, Argentina, Brasil, CSFloat, e-Brou, Prex, Midinero, Belo, Pix, Dolar Cripto">
+
+    <meta name="description"
+        content="Calculadora exacta de cashout y comisiones para traders de CS2 en LATAM. Calculá tu ganancia real retirando por e-Brou, Prex, Midinero, Belo o Pix con cotizaciones en vivo.">
+    <meta name="keywords"
+        content="CS2, skins, cashout, calculadora, Uruguay, Argentina, Brasil, CSFloat, e-Brou, Prex, Midinero, Belo, Pix, Dolar Cripto">
     <meta name="author" content="Mateo Botta">
-    
+
     <meta property="og:title" content="Trade LATAM | Calculadora de Cashout CS2">
-    <meta property="og:description" content="Calculá tu ganancia real y el ROI de tus skins de CS2. Cotizaciones en vivo para Uruguay, Argentina y Brasil.">
+    <meta property="og:description"
+        content="Calculá tu ganancia real y el ROI de tus skins de CS2. Cotizaciones en vivo para Uruguay, Argentina y Brasil.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mateuo10911.github.io/trade-latam/">
-    <meta property="og:image" content="https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhnwMzFJTwW09--m5NDzvLwOq-cxD0H7sFz3-qT94qt2lHi8hE9ZDz7doCdIAQ9ZgnSrwTolem5hMC4uZTBmyRnpGB8svJbFqVq">
+    <meta property="og:image"
+        content="https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhnwMzFJTwW09--m5NDzvLwOq-cxD0H7sFz3-qT94qt2lHi8hE9ZDz7doCdIAQ9ZgnSrwTolem5hMC4uZTBmyRnpGB8svJbFqVq">
     <meta name="theme-color" content="#f99f1b">
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap');
 
-        body { font-family: 'Chakra Petch', sans-serif; background-color: #0b0b0f; background-image: radial-gradient(circle at center, #15151f 0%, #0b0b0f 100%); color: #e0e0e0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 0 20px 40px 20px; }
-        
-        .top-bar { width: 100%; max-width: 950px; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid #2a2a35; margin-bottom: 30px; }
-        .logo { font-size: 22px; font-weight: 700; color: #ffffff; letter-spacing: 1px; }
-        .logo span { color: #f99f1b; }
-        .auth-container { display: flex; align-items: center; gap: 15px; }
-        .btn-login { background-color: #ffffff; color: #000000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-family: 'Chakra Petch', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.2s ease; }
-        .btn-login:hover { background-color: #f0f0f0; }
-        .user-profile { display: none; align-items: center; gap: 12px; background-color: #121216; padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid #2a2a35; }
-        .user-profile img { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #f99f1b; }
-        .user-profile span { font-weight: 600; font-size: 14px; }
-        .btn-logout { background: none; border: none; color: #8a8a96; cursor: pointer; font-family: 'Chakra Petch'; font-size: 12px; text-decoration: underline; padding: 0; margin-left: 10px; }
-        .btn-logout:hover { color: #ff1744; }
+        body {
+            font-family: 'Chakra Petch', sans-serif;
+            background-color: #0b0b0f;
+            background-image: radial-gradient(circle at center, #15151f 0%, #0b0b0f 100%);
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0 20px 40px 20px;
+        }
 
-        .contenedor-principal { display: flex; gap: 25px; max-width: 950px; width: 100%; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
-        .panel { background-color: #121216; padding: 35px; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); border-top: 4px solid #f99f1b; border-bottom: 1px solid #2a2a35; flex: 1; min-width: 320px; }
-        .panel-ancho { width: 100%; flex-basis: 100%; display: flex; gap: 20px; flex-wrap: wrap; }
-        
-        h2 { margin-top: 0; text-align: center; font-size: 24px; color: #ffffff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; border-bottom: 1px dashed #2a2a35; padding-bottom: 15px; width: 100%; }
-        .subtitulo-explicativo { color: #8a8a96; font-size: 14px; text-align: center; margin-top: -15px; margin-bottom: 25px; width: 100%; line-height: 1.5; }
-        .input-group { margin-bottom: 20px; flex: 1; min-width: 200px; }
-        label { display: block; margin-bottom: 8px; font-size: 13px; color: #8a8a96; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #2a2a35; border-radius: 6px; background-color: #070709; color: #ffffff; box-sizing: border-box; font-family: 'Chakra Petch', sans-serif; font-size: 16px; transition: all 0.3s ease; }
-        input:focus, select:focus { outline: none; border-color: #f99f1b; box-shadow: 0 0 10px rgba(249, 159, 27, 0.2); }
-        button.btn-accion { width: 100%; padding: 15px; background-color: #f99f1b; color: #000000; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 18px; text-transform: uppercase; margin-top: 20px; font-family: 'Chakra Petch', sans-serif; transition: all 0.2s ease; letter-spacing: 1px; }
-        button.btn-accion:hover { background-color: #ffb443; transform: translateY(-2px); }
-        .btn-premium { background-color: #1a1a24; color: #f99f1b; border: 1px solid #f99f1b; margin-top: 0; width: 100%; padding: 15px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 18px; text-transform: uppercase; font-family: 'Chakra Petch', sans-serif; transition: all 0.2s ease; }
-        .btn-premium:hover { background-color: #f99f1b; color: #000000; }
-        
-        .resultados { margin-top: 30px; padding-top: 20px; border-top: 1px dashed #2a2a35; width: 100%; }
-        .resultado-texto { font-size: 26px; margin: 5px 0 20px 0; color: #f99f1b; font-weight: 700; text-shadow: 0 0 15px rgba(249, 159, 27, 0.4); }
-        
-        .visor-texto { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #070709; border: 1px solid #2a2a35; border-radius: 8px; padding: 30px; margin-top: 25px; min-height: 150px; text-align: center; }
-        .skin-nombre { font-size: 22px; font-weight: 700; color: #ffffff; margin-bottom: 10px; }
-        .skin-precio-base { font-size: 18px; color: #8a8a96; }
-        .skin-precio-base span { color: #f99f1b; font-weight: 600; }
-        .texto-ayuda { font-size: 16px; color: #8a8a96; line-height: 1.5; }
+        .top-bar {
+            width: 100%;
+            max-width: 950px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #2a2a35;
+            margin-bottom: 30px;
+        }
 
-        .caja-premium { background: linear-gradient(135deg, #15151f 0%, #070709 100%); border: 1px dashed #8a8a96; border-radius: 8px; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; flex: 1; min-width: 250px; position: relative; overflow: hidden; }
-        .caja-premium::before { content: '🔒 PREMIUM'; position: absolute; top: 10px; right: 10px; font-size: 11px; color: #8a8a96; font-weight: bold; background: #2a2a35; padding: 4px 8px; border-radius: 4px; }
-        
-        #bot-asesor { position: fixed; bottom: 30px; right: 30px; display: flex; align-items: flex-end; gap: 15px; z-index: 1000; animation: flotar 4s ease-in-out infinite; pointer-events: none; }
-        @keyframes flotar { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .burbuja { background-color: #1a1a24; color: #e0e0e0; padding: 15px; border-radius: 12px 12px 0 12px; font-size: 14px; max-width: 250px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); border: 1px solid #f99f1b; font-weight: 600; line-height: 1.4; display: none; opacity: 0; transition: opacity 0.3s ease; pointer-events: auto; }
-        .avatar-icono { width: 70px; height: 70px; cursor: pointer; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>'); background-size: contain; background-position: center; background-repeat: no-repeat; transition: transform 0.2s ease; filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3)); pointer-events: auto; }
-        .avatar-icono:hover { transform: scale(1.1); }
-        .texto-destacado { color: #f99f1b; font-weight: 700; }
-        .texto-verde { color: #00e676; }
-        .texto-rojo { color: #ff1744; }
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #f99f1b;
+        }
+
+        .auth-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-login {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Chakra Petch', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-login:hover {
+            background-color: #f0f0f0;
+        }
+
+        .user-profile {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            background-color: #121216;
+            padding: 5px 15px 5px 5px;
+            border-radius: 30px;
+            border: 1px solid #2a2a35;
+        }
+
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid #f99f1b;
+        }
+
+        .user-profile span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .btn-logout {
+            background: none;
+            border: none;
+            color: #8a8a96;
+            cursor: pointer;
+            font-family: 'Chakra Petch';
+            font-size: 12px;
+            text-decoration: underline;
+            padding: 0;
+            margin-left: 10px;
+        }
+
+        .btn-logout:hover {
+            color: #ff1744;
+        }
+
+        .contenedor-principal {
+            display: flex;
+            gap: 25px;
+            max-width: 950px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .panel {
+            background-color: #121216;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            border-top: 4px solid #f99f1b;
+            border-bottom: 1px solid #2a2a35;
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .panel-ancho {
+            width: 100%;
+            flex-basis: 100%;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 24px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            border-bottom: 1px dashed #2a2a35;
+            padding-bottom: 15px;
+            width: 100%;
+        }
+
+        .subtitulo-explicativo {
+            color: #8a8a96;
+            font-size: 14px;
+            text-align: center;
+            margin-top: -15px;
+            margin-bottom: 25px;
+            width: 100%;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #8a8a96;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #2a2a35;
+            border-radius: 6px;
+            background-color: #070709;
+            color: #ffffff;
+            box-sizing: border-box;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #f99f1b;
+            box-shadow: 0 0 10px rgba(249, 159, 27, 0.2);
+        }
+
+        button.btn-accion {
+            width: 100%;
+            padding: 15px;
+            background-color: #f99f1b;
+            color: #000000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            font-family: 'Chakra Petch', sans-serif;
+            transition: all 0.2s ease;
+            letter-spacing: 1px;
+        }
+
+        button.btn-accion:hover {
+            background-color: #ffb443;
+            transform: translateY(-2px);
+        }
+
+        .btn-premium {
+            background-color: #1a1a24;
+            color: #f99f1b;
+            border: 1px solid #f99f1b;
+            margin-top: 0;
+            width: 100%;
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-family: 'Chakra Petch', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .btn-premium:hover {
+            background-color: #f99f1b;
+            color: #000000;
+        }
+
+        .resultados {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #2a2a35;
+            width: 100%;
+        }
+
+        .resultado-texto {
+            font-size: 26px;
+            margin: 5px 0 20px 0;
+            color: #f99f1b;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(249, 159, 27, 0.4);
+        }
+
+        .visor-texto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #070709;
+            border: 1px solid #2a2a35;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 25px;
+            min-height: 150px;
+            text-align: center;
+        }
+
+        .skin-nombre {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .skin-precio-base {
+            font-size: 18px;
+            color: #8a8a96;
+        }
+
+        .skin-precio-base span {
+            color: #f99f1b;
+            font-weight: 600;
+        }
+
+        .texto-ayuda {
+            font-size: 16px;
+            color: #8a8a96;
+            line-height: 1.5;
+        }
+
+        .caja-premium {
+            background: linear-gradient(135deg, #15151f 0%, #070709 100%);
+            border: 1px dashed #8a8a96;
+            border-radius: 8px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .caja-premium::before {
+            content: '🔒 PREMIUM';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 11px;
+            color: #8a8a96;
+            font-weight: bold;
+            background: #2a2a35;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        #bot-asesor {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            z-index: 1000;
+            animation: flotar 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes flotar {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .burbuja {
+            background-color: #1a1a24;
+            color: #e0e0e0;
+            padding: 15px;
+            border-radius: 12px 12px 0 12px;
+            font-size: 14px;
+            max-width: 250px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            border: 1px solid #f99f1b;
+            font-weight: 600;
+            line-height: 1.4;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .avatar-icono {
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="12" fill="%23f99f1b" rx="1"/><rect x="2" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="19" y="7" width="3" height="4" fill="%23f99f1b" rx="0.5"/><rect x="1" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="19" y="11" width="4" height="3" fill="%23f99f1b" rx="0.5"/><rect x="7" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="14" y="16" width="3" height="5" fill="%23f99f1b" rx="0.5"/><rect x="8" y="7" width="2" height="2" fill="%23141419"/><rect x="14" y="7" width="2" height="2" fill="%23141419"/><rect x="9" y="11" width="6" height="1.5" fill="%23141419"/></svg>');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.2s ease;
+            filter: drop-shadow(0 5px 15px rgba(249, 159, 27, 0.3));
+            pointer-events: auto;
+        }
+
+        .avatar-icono:hover {
+            transform: scale(1.1);
+        }
+
+        .texto-destacado {
+            color: #f99f1b;
+            font-weight: 700;
+        }
+
+        .texto-verde {
+            color: #00e676;
+        }
+
+        .texto-rojo {
+            color: #ff1744;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="top-bar">
@@ -78,10 +417,18 @@
             <button class="btn-login" id="btnLogin">
                 <!-- SVG de Google integrado -->
                 <svg width="18" height="18" viewBox="0 0 48 48">
-                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
-                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
-                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
-                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                    <path fill="#EA4335"
+                        d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
+                    </path>
+                    <path fill="#4285F4"
+                        d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
+                    </path>
+                    <path fill="#FBBC05"
+                        d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
+                    </path>
+                    <path fill="#34A853"
+                        d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
+                    </path>
                     <path fill="none" d="M0 0h48v48H0z"></path>
                 </svg>
                 Iniciar Sesión
@@ -99,14 +446,16 @@
             <h2>Terminal de Mercado</h2>
             <div class="input-group">
                 <label>Activo / Arma</label>
-                <input list="listaSkins" id="buscadorSkins" placeholder="Ej: AWP Asiimov..." oninput="seleccionarSkin()">
+                <input list="listaSkins" id="buscadorSkins" placeholder="Ej: AWP Asiimov..."
+                    oninput="seleccionarSkin()">
                 <datalist id="listaSkins"></datalist>
             </div>
-            
+
             <div class="visor-texto" id="visorTexto">
                 <div class="skin-nombre" id="nombreSkinTexto" style="display: none;"></div>
                 <div class="skin-precio-base" id="precioSkinTexto" style="display: none;"></div>
-                <div class="texto-ayuda" id="textoAyuda">Buscá tu arma en el catálogo.<br><br>Si no está, podés <span class="texto-destacado">ingresar el precio manualmente</span> en la calculadora.</div>
+                <div class="texto-ayuda" id="textoAyuda">Buscá tu arma en el catálogo.<br><br>Si no está, podés <span
+                        class="texto-destacado">ingresar el precio manualmente</span> en la calculadora.</div>
             </div>
         </div>
 
@@ -151,12 +500,14 @@
 
         <div class="panel panel-ancho">
             <h2>Simulador de Rentabilidad (ROI)</h2>
-            <p class="subtitulo-explicativo">Calcula tu ganancia real cruzando tu inversión inicial con el precio de venta actual, descontando automáticamente todas las comisiones de retiro.</p>
-            
+            <p class="subtitulo-explicativo">Calcula tu ganancia real cruzando tu inversión inicial con el precio de
+                venta actual, descontando automáticamente todas las comisiones de retiro.</p>
+
             <div style="flex: 1; min-width: 250px;">
                 <div class="input-group">
                     <label>¿A cuánto compraste el arma? (USD)</label>
-                    <input type="number" id="precioCompra" placeholder="Ingresá tu inversión inicial..." oninput="calcularROI()">
+                    <input type="number" id="precioCompra" placeholder="Ingresá tu inversión inicial..."
+                        oninput="calcularROI()">
                 </div>
                 <div class="resultados" style="margin-top: 15px; border-top: none; padding-top: 0;">
                     <label>Ganancia/Pérdida (Limpia):</label>
@@ -165,10 +516,11 @@
                     <p class="resultado-texto" id="resultadoROI">0.00%</p>
                 </div>
             </div>
-            
+
             <div class="caja-premium">
                 <h3 style="margin-top: 0; color: #ffffff;">Gestor de Portafolio</h3>
-                <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">Guardá tu inventario completo, rastreá tus ganancias históricas y creá proyecciones a largo plazo.</p>
+                <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">Guardá tu inventario completo, rastreá
+                    tus ganancias históricas y creá proyecciones a largo plazo.</p>
                 <button class="btn-premium" onclick="alertaPremium()">Probar 3 días gratis</button>
             </div>
         </div>
@@ -186,7 +538,7 @@
         import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCg2uYRUxCRwZVB9PEtk1Hx2DPxwarC-AE",
+            apiKey: "AIzaSyCyy5MujIEYijOB2EeXQkHHp-ed8i94WI4",
             authDomain: "trade-latam-68fad.firebaseapp.com",
             projectId: "trade-latam-68fad",
             storageBucket: "trade-latam-68fad.firebasestorage.app",
@@ -222,7 +574,7 @@
                 btnLogin.style.display = 'none';
                 userProfile.style.display = 'flex';
                 userPhoto.src = user.photoURL;
-                userName.innerText = user.displayName.split(' ')[0]; 
+                userName.innerText = user.displayName.split(' ')[0];
 
                 const userRef = doc(db, "usuarios", user.uid);
                 let userSnap = await getDoc(userRef);
@@ -277,7 +629,7 @@
             "Sport Gloves | Vice (Field-Tested)": { precio: 950.00 }
         };
 
-        let usdLimpioGlobal = 0; 
+        let usdLimpioGlobal = 0;
 
         function cargarListaSkins() {
             let datalist = document.getElementById('listaSkins');
@@ -295,11 +647,11 @@
                 document.getElementById('textoAyuda').style.display = "none";
                 document.getElementById('nombreSkinTexto').style.display = "block";
                 document.getElementById('precioSkinTexto').style.display = "block";
-                
+
                 document.getElementById('nombreSkinTexto').innerText = seleccion;
                 document.getElementById('precioSkinTexto').innerHTML = "Valor de mercado: <span>USD " + baseDeSkins[seleccion].precio.toFixed(2) + "</span>";
                 document.getElementById('precioUSD').value = baseDeSkins[seleccion].precio;
-                
+
                 calcular();
             }
         }
@@ -308,15 +660,15 @@
         const opcionesAR = `<option value="binance_p2p_ar">Binance P2P (USDT/LTC) - ~1%</option><option value="fiwind_cripto">Fiwind (Cripto a ARS) - ~1%</option><option value="belo_cripto">Belo (Cripto a ARS) - 1.5%</option><option value="lemon_cripto">Lemon Cash (Cripto a ARS) - 2%</option>`;
         const opcionesBR = `<option value="binance_p2p_br">Binance P2P (BRL) - ~1%</option><option value="pix_exchange">Pix (vía Exchange local) - 1.5%</option><option value="mercadopago_cripto">Mercado Pago (Cripto a Pix) - ~2%</option>`;
 
-        window.onload = function() { 
-            actualizarPais(); 
-            cargarListaSkins(); 
+        window.onload = function () {
+            actualizarPais();
+            cargarListaSkins();
         };
 
         async function actualizarPais() {
             let pais = document.getElementById('pais').value;
             let inputCotizacion = document.getElementById('cotizacionLocal');
-            inputCotizacion.value = "Cargando..."; 
+            inputCotizacion.value = "Cargando...";
 
             try {
                 if (pais === 'UY') {
@@ -338,7 +690,7 @@
                     let data = await res.json();
                     inputCotizacion.value = data.rates.BRL.toFixed(2);
                 }
-                
+
                 if (document.getElementById('precioUSD').value === "") {
                     saludarAutomatico();
                 } else {
@@ -354,14 +706,14 @@
             let cotizacion = parseFloat(document.getElementById('cotizacionLocal').value);
             let metodo = document.getElementById('metodoCobro').value;
 
-            if(isNaN(precio) || precio <= 0 || isNaN(cotizacion)) return;
+            if (isNaN(precio) || precio <= 0 || isNaN(cotizacion)) return;
 
             let saldoEnPlataforma = precio - (precio * (comision / 100));
             usdLimpioGlobal = saldoEnPlataforma;
-            
-            if (metodo === 'prex_payoneer') { usdLimpioGlobal -= saldoEnPlataforma * 0.02; } 
-            else if (metodo === 'prex_paypal') { usdLimpioGlobal -= (8 * 1.22); } 
-            else if (metodo === 'ebrou_banco') { usdLimpioGlobal -= 1.50; } 
+
+            if (metodo === 'prex_payoneer') { usdLimpioGlobal -= saldoEnPlataforma * 0.02; }
+            else if (metodo === 'prex_paypal') { usdLimpioGlobal -= (8 * 1.22); }
+            else if (metodo === 'ebrou_banco') { usdLimpioGlobal -= 1.50; }
             else if (metodo === 'midinero_paypal') { usdLimpioGlobal -= saldoEnPlataforma * 0.035; }
             else if (metodo === 'belo_cripto' || metodo === 'pix_exchange') { usdLimpioGlobal -= saldoEnPlataforma * 0.015; }
             else if (metodo === 'lemon_cripto' || metodo === 'mercadopago_cripto') { usdLimpioGlobal -= saldoEnPlataforma * 0.02; }
@@ -370,7 +722,7 @@
             if (usdLimpioGlobal < 0) usdLimpioGlobal = 0;
             document.getElementById('resultadoUSD').innerText = "USD " + usdLimpioGlobal.toFixed(2);
             document.getElementById('resultadoLocal').innerText = (pais === 'UY' ? '$U' : (pais === 'AR' ? 'ARS$' : 'R$')) + " " + (usdLimpioGlobal * cotizacion).toFixed(2);
-            
+
             calcularROI();
             pensarRecomendacion(saldoEnPlataforma);
         }
@@ -379,8 +731,8 @@
             let compra = parseFloat(document.getElementById('precioCompra').value);
             let benElement = document.getElementById('resultadoBeneficio');
             let roiElement = document.getElementById('resultadoROI');
-            
-            if(isNaN(compra) || compra <= 0 || usdLimpioGlobal <= 0) {
+
+            if (isNaN(compra) || compra <= 0 || usdLimpioGlobal <= 0) {
                 benElement.innerText = "USD 0.00";
                 roiElement.innerText = "0.00%";
                 benElement.className = "resultado-texto";
@@ -428,7 +780,7 @@
             let pais = document.getElementById('pais').value;
             let precio = parseFloat(document.getElementById('precioUSD').value);
 
-            if(isNaN(precio) || precio <= 0) {
+            if (isNaN(precio) || precio <= 0) {
                 document.getElementById('burbujaTexto').style.opacity = "0";
                 setTimeout(() => { document.getElementById('burbujaTexto').style.display = "none"; }, 300);
                 return;
@@ -470,7 +822,7 @@
                 mostrarMensajeAvatar(`Para retirar esos <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, te conviene usar <span class="texto-destacado">${mejorMetodo}</span>.`);
             }
         }
-        
+
         function alertaPremium() {
             const userProfile = document.getElementById('userProfile');
             if (userProfile.style.display === 'flex') {
@@ -481,4 +833,5 @@
         }
     </script>
 </body>
+
 </html>
