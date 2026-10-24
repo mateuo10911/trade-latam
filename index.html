@@ -198,11 +198,11 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // Eventos vinculados directamente en JS
+        // Eventos vinculados directamente en JS con reporte de error técnico
         document.getElementById('btnLogin').addEventListener('click', () => {
             signInWithPopup(auth, provider).catch((error) => {
                 console.error("Error al iniciar sesión:", error);
-                alert("Hubo un error al conectar con Google. Revisá la configuración de Dominios autorizados en Firebase.");
+                alert("Falla técnica de Firebase: " + error.code + "\nDetalle: " + error.message);
             });
         });
 
