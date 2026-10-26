@@ -535,10 +535,10 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyCyy5MujIEYijOB2EeXQkHHp-ed8i94WI4",
+            apiKey: "AIzaSyCg2uYRUxcRWZVB9PEtk1Hx2DPxwarC-AE",
             authDomain: "trade-latam-68fad.firebaseapp.com",
             projectId: "trade-latam-68fad",
             storageBucket: "trade-latam-68fad.firebasestorage.app",
@@ -553,14 +553,11 @@
         const provider = new GoogleAuthProvider();
 
         document.getElementById('btnLogin').addEventListener('click', () => {
-            signInWithPopup(auth, provider).catch((error) => {
-                console.error("Error al iniciar sesión:", error);
-                alert("Falla técnica de Firebase: " + error.code + "\nDetalle: " + error.message);
-            });
+            signInWithPopup(auth, provider).catch((error) => console.error(error));
         });
 
         document.getElementById('btnSalir').addEventListener('click', () => {
-            signOut(auth).catch((error) => console.error("Error al cerrar sesión:", error));
+            signOut(auth).catch((error) => console.error(error));
         });
 
         onAuthStateChanged(auth, async (user) => {
@@ -580,23 +577,53 @@
                 let userSnap = await getDoc(userRef);
 
                 if (!userSnap.exists()) {
-                    await setDoc(userRef, {
-                        nombre: user.displayName,
-                        email: user.email,
-                        isPremium: false
-                    });
+                    await setDoc(userRef, { nombre: user.displayName, email: user.email, isPremium: false });
                     userSnap = await getDoc(userRef);
                 }
 
-                const userData = userSnap.data();
-
-                if (userData.isPremium) {
+                if (userSnap.data().isPremium) {
                     cajaPremium.innerHTML = `
                         <h3 style="margin-top: 0; color: #ffffff;">Gestor de Portafolio</h3>
                         <p style="color: #00e676; font-size: 14px; font-weight: bold;">✓ Nivel Premium Activado</p>
                         <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">El guardado en la nube está habilitado para tu cuenta.</p>
-                        <button class="btn-accion" style="margin-top: 0;" onclick="alert('Función de guardado en desarrollo')">Guardar Simulación</button>
+                        <button class="btn-accion" id="btnGuardar" style="margin-top: 0;">Guardar Simulación</button>
                     `;
+
+                    document.getElementById('btnGuardar').addEventListener('click', async () => {
+                        const btn = document.getElementById('btnGuardar');
+                        btn.innerText = "Guardando...";
+                        btn.disabled = true;
+
+                        const skin = document.getElementById('buscadorSkins').value || "Ingreso Manual";
+                        const precioVenta = document.getElementById('precioUSD').value;
+                        const precioCompra = document.getElementById('precioCompra').value || 0;
+                        const metodoElement = document.getElementById('metodoCobro');
+                        const metodo = metodoElement.options[metodoElement.selectedIndex].text;
+                        const usdNeto = document.getElementById('resultadoUSD').innerText;
+
+                        try {
+                            await addDoc(collection(db, "usuarios", user.uid, "simulaciones"), {
+                                arma: skin,
+                                ventaUSD: precioVenta,
+                                compraUSD: precioCompra,
+                                viaRetiro: metodo,
+                                gananciaNeta: usdNeto,
+                                fecha: new Date().toISOString()
+                            });
+                            btn.innerText = "¡Guardado con éxito!";
+                            btn.style.backgroundColor = "#00e676";
+                            setTimeout(() => {
+                                btn.innerText = "Guardar Simulación";
+                                btn.style.backgroundColor = "#f99f1b";
+                                btn.disabled = false;
+                            }, 3000);
+                        } catch (error) {
+                            console.error(error);
+                            alert("Error al guardar en la nube.");
+                            btn.innerText = "Guardar Simulación";
+                            btn.disabled = false;
+                        }
+                    });
                 }
             } else {
                 btnLogin.style.display = 'flex';
