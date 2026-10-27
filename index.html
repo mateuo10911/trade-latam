@@ -6,21 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade LATAM | Panel de Skins</title>
 
-    <meta name="description"
-        content="Calculadora exacta de cashout y comisiones para traders de CS2 en LATAM. Calculá tu ganancia real retirando por e-Brou, Prex, Midinero, Belo o Pix con cotizaciones en vivo.">
-    <meta name="keywords"
-        content="CS2, skins, cashout, calculadora, Uruguay, Argentina, Brasil, CSFloat, e-Brou, Prex, Midinero, Belo, Pix, Dolar Cripto">
-    <meta name="author" content="Mateo Botta">
-
-    <meta property="og:title" content="Trade LATAM | Calculadora de Cashout CS2">
-    <meta property="og:description"
-        content="Calculá tu ganancia real y el ROI de tus skins de CS2. Cotizaciones en vivo para Uruguay, Argentina y Brasil.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mateuo10911.github.io/trade-latam/">
-    <meta property="og:image"
-        content="https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhnwMzFJTwW09--m5NDzvLwOq-cxD0H7sFz3-qT94qt2lHi8hE9ZDz7doCdIAQ9ZgnSrwTolem5hMC4uZTBmyRnpGB8svJbFqVq">
-    <meta name="theme-color" content="#f99f1b">
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&display=swap');
 
@@ -120,6 +105,17 @@
 
         .btn-logout:hover {
             color: #ff1744;
+        }
+
+        .selector-idioma {
+            background: #121216;
+            color: #e0e0e0;
+            border: 1px solid #2a2a35;
+            padding: 8px;
+            border-radius: 6px;
+            font-family: 'Chakra Petch';
+            cursor: pointer;
+            font-weight: 600;
         }
 
         .contenedor-principal {
@@ -438,43 +434,27 @@
     <div class="top-bar">
         <div class="logo">TRADE<span>LATAM</span></div>
         <div class="auth-container">
-            <select id="selectorIdioma" onchange="cambiarIdioma()"
-                style="background: #121216; color: #e0e0e0; border: 1px solid #2a2a35; padding: 10px; border-radius: 6px; margin-right: 15px; font-family: 'Chakra Petch'; cursor: pointer;">
+            <select id="selectorIdioma" class="selector-idioma" onchange="cambiarIdioma()">
                 <option value="es">ES 🇪🇸</option>
                 <option value="pt">PT 🇧🇷</option>
                 <option value="en">EN 🇺🇸</option>
             </select>
             <button class="btn-login" id="btnLogin">
-                <svg width="18" height="18" viewBox="0 0 48 48">
-                    <path fill="#EA4335"
-                        d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
-                    </path>
-                    <path fill="#4285F4"
-                        d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
-                    </path>
-                    <path fill="#FBBC05"
-                        d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
-                    </path>
-                    <path fill="#34A853"
-                        d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
-                    </path>
-                    <path fill="none" d="M0 0h48v48H0z"></path>
-                </svg>
-                Iniciar Sesión
+                <span data-i18n="iniciar_sesion">Iniciar Sesión</span>
             </button>
             <div class="user-profile" id="userProfile">
                 <img id="userPhoto" src="" alt="Avatar">
                 <span id="userName">Usuario</span>
-                <button class="btn-logout" id="btnSalir">Salir</button>
+                <button class="btn-logout" id="btnSalir" data-i18n="salir">Salir</button>
             </div>
         </div>
     </div>
 
     <div class="contenedor-principal">
         <div class="panel">
-            <h2>Terminal de Mercado</h2>
+            <h2 data-i18n="terminal_titulo">Terminal de Mercado</h2>
             <div class="input-group">
-                <label>Activo / Arma</label>
+                <label data-i18n="activo_label">Activo / Arma</label>
                 <input list="listaSkins" id="buscadorSkins" placeholder="Ej: AWP Asiimov..."
                     oninput="seleccionarSkin()">
                 <datalist id="listaSkins"></datalist>
@@ -483,74 +463,74 @@
             <div class="visor-texto" id="visorTexto">
                 <div class="skin-nombre" id="nombreSkinTexto" style="display: none;"></div>
                 <div class="skin-precio-base" id="precioSkinTexto" style="display: none;"></div>
-                <div class="texto-ayuda" id="textoAyuda">Buscá tu arma en el catálogo.<br><br>Si no está, podés <span
-                        class="texto-destacado">ingresar el precio manualmente</span> en la calculadora.</div>
+                <div class="texto-ayuda" id="textoAyuda" data-i18n="texto_ayuda">Buscá tu arma en el catálogo.<br><br>Si
+                    no está, podés ingresar el precio manualmente.</div>
             </div>
         </div>
 
         <div class="panel">
-            <h2>Liquidación de Fondos</h2>
+            <h2 data-i18n="liquidacion_titulo">Liquidación de Fondos</h2>
             <div style="display: flex; gap: 15px;">
                 <div class="input-group" style="flex: 1;">
-                    <label>Región</label>
+                    <label data-i18n="region_label">Región</label>
                     <select id="pais" onchange="actualizarPais()">
-                        <option value="UY">Uruguay</option>
-                        <option value="AR">Argentina</option>
-                        <option value="BR">Brasil</option>
+                        <option value="UY" data-i18n="opt_uruguay">Uruguay</option>
+                        <option value="AR" data-i18n="opt_argentina">Argentina</option>
+                        <option value="BR" data-i18n="opt_brasil">Brasil</option>
                     </select>
                 </div>
                 <div class="input-group" style="flex: 1;">
-                    <label>Monto Venta (USD)</label>
+                    <label data-i18n="monto_label">Monto Venta (USD)</label>
                     <input type="number" id="precioUSD" placeholder="0.00" oninput="calcular();">
                 </div>
             </div>
             <div class="input-group">
-                <label>Ruta de Extracción</label>
+                <label data-i18n="ruta_label">Ruta de Extracción</label>
                 <select id="metodoCobro" onchange="calcular()"></select>
             </div>
             <div style="display: flex; gap: 15px;">
                 <div class="input-group" style="flex: 1;">
-                    <label>Fee Plataforma (%)</label>
+                    <label data-i18n="fee_label">Fee Plataforma (%)</label>
                     <input type="number" id="comisionPlataforma" value="2" oninput="calcular();">
                 </div>
                 <div class="input-group" style="flex: 1;">
-                    <label id="labelCotizacion">Tasa de Cambio</label>
-                    <input type="text" id="cotizacionLocal" value="Cargando...">
+                    <label id="labelCotizacion" data-i18n="tasa_label">Tasa de Cambio</label>
+                    <input type="text" id="cotizacionLocal" value="...">
                 </div>
             </div>
-            <button class="btn-accion" onclick="calcular()">Procesar Cashout</button>
+            <button class="btn-accion" onclick="calcular()" data-i18n="btn_procesar">Procesar Cashout</button>
             <div class="resultados" style="margin-top: 10px;">
-                <label>Capital Neto (USD):</label>
+                <label data-i18n="neto_label">Capital Neto (USD):</label>
                 <p class="resultado-texto" id="resultadoUSD">USD 0.00</p>
-                <label>Capital Acreditado:</label>
+                <label data-i18n="acreditado_label">Capital Acreditado:</label>
                 <p class="resultado-texto" id="resultadoLocal" style="margin-bottom: 0;">$ 0.00</p>
             </div>
         </div>
 
         <div class="panel panel-ancho">
-            <h2>Simulador de Rentabilidad (ROI)</h2>
-            <p class="subtitulo-explicativo">Calcula tu ganancia real cruzando tu inversión inicial con el precio de
-                venta actual, descontando automáticamente todas las comisiones de retiro.</p>
+            <h2 data-i18n="roi_titulo">Simulador de Rentabilidad (ROI)</h2>
+            <p class="subtitulo-explicativo" data-i18n="roi_desc">Calcula tu ganancia real cruzando tu inversión inicial
+                con el precio de venta actual, descontando automáticamente todas las comisiones de retiro.</p>
 
             <div style="flex: 1; min-width: 250px;">
                 <div class="input-group">
-                    <label>¿A cuánto compraste el arma? (USD)</label>
-                    <input type="number" id="precioCompra" placeholder="Ingresá tu inversión inicial..."
-                        oninput="calcularROI()">
+                    <label data-i18n="compra_label">¿A cuánto compraste el arma? (USD)</label>
+                    <input type="number" id="precioCompra" placeholder="0.00" oninput="calcularROI()">
                 </div>
                 <div class="resultados" style="margin-top: 15px; border-top: none; padding-top: 0;">
-                    <label>Ganancia/Pérdida (Limpia):</label>
+                    <label data-i18n="ganancia_label">Ganancia/Pérdida (Limpia):</label>
                     <p class="resultado-texto" id="resultadoBeneficio">USD 0.00</p>
-                    <label>Rentabilidad (ROI):</label>
+                    <label data-i18n="rentabilidad_label">Rentabilidad (ROI):</label>
                     <p class="resultado-texto" id="resultadoROI">0.00%</p>
                 </div>
             </div>
 
             <div class="caja-premium" id="cajaPremiumContenedor">
-                <h3 style="margin-top: 0; color: #ffffff;">Gestor de Portafolio</h3>
-                <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">Guardá tu inventario completo, rastreá
-                    tus ganancias históricas y creá proyecciones a largo plazo.</p>
-                <button class="btn-premium" onclick="alertaPremium()">Activar Premium (1 USD)</button>
+                <h3 style="margin-top: 0; color: #ffffff;" data-i18n="gestor_titulo">Gestor de Portafolio</h3>
+                <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;" data-i18n="gestor_desc">Guardá tu
+                    inventario completo, rastreá tus ganancias históricas y creá proyecciones a largo plazo.</p>
+                <button class="btn-premium" onclick="alertaPremium()" data-i18n="btn_activar">Activar Premium (1
+                    USD)</button>
             </div>
         </div>
     </div>
@@ -560,7 +540,56 @@
         <div class="avatar-icono" onclick="saludarAutomatico()"></div>
     </div>
 
-    <!-- SCRIPT DE FIREBASE CON FIRESTORE Y TU API KEY -->
+    <script>
+        const traducciones = {
+            es: {
+                iniciar_sesion: "Iniciar Sesión", salir: "Salir", terminal_titulo: "Terminal de Mercado",
+                activo_label: "Activo / Arma", texto_ayuda: "Buscá tu arma en el catálogo.<br><br>Si no está, podés ingresar el precio manualmente.",
+                liquidacion_titulo: "Liquidación de Fondos", region_label: "Región", opt_uruguay: "Uruguay", opt_argentina: "Argentina", opt_brasil: "Brasil",
+                monto_label: "Monto Venta (USD)", ruta_label: "Ruta de Extracción", fee_label: "Fee Plataforma (%)",
+                tasa_label: "Tasa de Cambio", btn_procesar: "Procesar Cashout", neto_label: "Capital Neto (USD):", acreditado_label: "Capital Acreditado:",
+                roi_titulo: "Simulador de Rentabilidad (ROI)", roi_desc: "Calcula tu ganancia real cruzando tu inversión inicial con el precio de venta actual, descontando automáticamente todas las comisiones de retiro.",
+                compra_label: "¿A cuánto compraste el arma? (USD)", ganancia_label: "Ganancia/Pérdida (Limpia):", rentabilidad_label: "Rentabilidad (ROI):",
+                gestor_titulo: "Gestor de Portafolio", gestor_desc: "Guardá tu inventario completo, rastreá tus ganancias históricas y creá proyecciones a largo plazo.",
+                btn_activar: "Activar Premium (1 USD)", btn_guardar: "Guardar Simulación Actual", premium_activado: "✓ Nivel Premium Activado", sin_simulaciones: "No hay simulaciones guardadas todavía."
+            },
+            pt: {
+                iniciar_sesion: "Entrar", salir: "Sair", terminal_titulo: "Terminal de Mercado",
+                activo_label: "Ativo / Arma", texto_ayuda: "Procure sua arma no catálogo.<br><br>Se não estiver lá, você pode inserir o preço manualmente.",
+                liquidacion_titulo: "Liquidação de Fundos", region_label: "Região", opt_uruguay: "Uruguai", opt_argentina: "Argentina", opt_brasil: "Brasil",
+                monto_label: "Valor Venda (USD)", ruta_label: "Rota de Saque", fee_label: "Taxa da Plataforma (%)",
+                tasa_label: "Taxa de Câmbio", btn_procesar: "Processar Saque", neto_label: "Capital Líquido (USD):", acreditado_label: "Capital Creditado:",
+                roi_titulo: "Simulador de Rentabilidade (ROI)", roi_desc: "Calcule seu lucro real cruzando seu investimento inicial com o preço de venda atual, deduzindo automaticamente todas as taxas de saque.",
+                compra_label: "Por quanto comprou a arma? (USD)", ganancia_label: "Lucro/Perda (Líquido):", rentabilidad_label: "Rentabilidade (ROI):",
+                gestor_titulo: "Gestor de Portfólio", gestor_desc: "Salve seu inventário completo, acompanhe seus lucros históricos e crie projeções de longo prazo.",
+                btn_activar: "Ativar Premium (1 USD)", btn_guardar: "Salvar Simulação Atual", premium_activado: "✓ Nível Premium Ativado", sin_simulaciones: "Nenhuma simulação salva ainda."
+            },
+            en: {
+                iniciar_sesion: "Login", salir: "Logout", terminal_titulo: "Market Terminal",
+                activo_label: "Asset / Weapon", texto_ayuda: "Search for your weapon in the catalog.<br><br>If it's not there, you can enter the price manually.",
+                liquidacion_titulo: "Fund Liquidation", region_label: "Region", opt_uruguay: "Uruguay", opt_argentina: "Argentina", opt_brasil: "Brazil",
+                monto_label: "Sale Amount (USD)", ruta_label: "Withdrawal Route", fee_label: "Platform Fee (%)",
+                tasa_label: "Exchange Rate", btn_procesar: "Process Cashout", neto_label: "Net Capital (USD):", acreditado_label: "Credited Capital:",
+                roi_titulo: "ROI Simulator", roi_desc: "Calculate your real profit by cross-referencing your initial investment with the current sale price, automatically deducting all withdrawal fees.",
+                compra_label: "Purchase price? (USD)", ganancia_label: "Profit/Loss (Net):", rentabilidad_label: "Return on Investment (ROI):",
+                gestor_titulo: "Portfolio Manager", gestor_desc: "Save your complete inventory, track your historical profits, and create long-term projections.",
+                btn_activar: "Activate Premium (1 USD)", btn_guardar: "Save Current Simulation", premium_activado: "✓ Premium Level Activated", sin_simulaciones: "No saved simulations yet."
+            }
+        };
+
+        function cambiarIdioma() {
+            const lang = document.getElementById('selectorIdioma').value;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (traducciones[lang][key]) {
+                    el.innerHTML = traducciones[lang][key];
+                }
+            });
+            saludarAutomatico();
+        }
+    </script>
+
+    <!-- SCRIPT DE FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
@@ -591,6 +620,7 @@
 
         async function cargarHistorialSimulaciones(userId, contenedor) {
             try {
+                const lang = document.getElementById('selectorIdioma').value;
                 const q = query(collection(db, "usuarios", userId, "simulaciones"), orderBy("fecha", "desc"));
                 const querySnapshot = await getDocs(q);
 
@@ -610,15 +640,14 @@
                 });
 
                 if (filasHTML === "") {
-                    filasHTML = `<tr><td colspan="5" style="text-align: center; color: #8a8a96;">No hay simulaciones guardadas todavía.</td></tr>`;
+                    filasHTML = `<tr><td colspan="5" style="text-align: center; color: #8a8a96;" data-i18n="sin_simulaciones">${traducciones[lang]['sin_simulaciones']}</td></tr>`;
                 }
 
                 contenedor.innerHTML = `
-                    <h3 style="margin-top: 0; color: #ffffff; width: 100%;">Gestor de Portafolio en la Nube</h3>
-                    <p style="color: #00e676; font-size: 14px; font-weight: bold; margin-top: -10px; width: 100%;">✓ Nivel Premium Activado</p>
-                    <button class="btn-accion" id="btnGuardar" style="margin-top: 0; margin-bottom: 20px;">Guardar Simulación Actual</button>
+                    <h3 style="margin-top: 0; color: #ffffff; width: 100%;" data-i18n="gestor_titulo">${traducciones[lang]['gestor_titulo']}</h3>
+                    <p style="color: #00e676; font-size: 14px; font-weight: bold; margin-top: -10px; width: 100%;" data-i18n="premium_activado">${traducciones[lang]['premium_activado']}</p>
+                    <button class="btn-accion" id="btnGuardar" style="margin-top: 0; margin-bottom: 20px;" data-i18n="btn_guardar">${traducciones[lang]['btn_guardar']}</button>
                     
-                    <h4 style="color: #ffffff; margin: 10px 0; width: 100%; text-align: left;">Historial de Operaciones:</h4>
                     <div style="width: 100%; overflow-x: auto;">
                         <table class="tabla-portafolio">
                             <thead>
@@ -639,7 +668,7 @@
 
                 document.getElementById('btnGuardar').addEventListener('click', async () => {
                     const btn = document.getElementById('btnGuardar');
-                    btn.innerText = "Guardando...";
+                    btn.innerText = "...";
                     btn.disabled = true;
 
                     const skin = document.getElementById('buscadorSkins').value || "Ingreso Manual";
@@ -658,22 +687,16 @@
                             gananciaNeta: usdNeto,
                             fecha: new Date().toISOString()
                         });
-                        btn.innerText = "¡Guardado con éxito!";
                         btn.style.backgroundColor = "#00e676";
                         setTimeout(() => {
                             cargarHistorialSimulaciones(userId, contenedor);
                         }, 1500);
                     } catch (error) {
                         console.error(error);
-                        alert("Error al guardar en la nube.");
-                        btn.innerText = "Guardar Simulación Actual";
                         btn.disabled = false;
                     }
                 });
-
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         onAuthStateChanged(auth, async (user) => {
@@ -682,6 +705,7 @@
             const userPhoto = document.getElementById('userPhoto');
             const userName = document.getElementById('userName');
             const cajaPremium = document.getElementById('cajaPremiumContenedor');
+            const lang = document.getElementById('selectorIdioma').value;
 
             if (user) {
                 btnLogin.style.display = 'none';
@@ -700,20 +724,12 @@
                 if (userSnap.data().isPremium) {
                     await cargarHistorialSimulaciones(user.uid, cajaPremium);
                 } else {
-                    cajaPremium.innerHTML = `
-                        <h3 style="margin-top: 0; color: #ffffff;">Gestor de Portafolio</h3>
-                        <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">Guardá tu inventario completo, rastreá tus ganancias históricas y creá proyecciones a largo plazo.</p>
-                        <button class="btn-premium" onclick="alertaPremium()">Activar Premium (1 USD)</button>
-                    `;
+                    cajaPremium.innerHTML = `<h3 style="margin-top: 0; color: #ffffff;" data-i18n="gestor_titulo">${traducciones[lang]['gestor_titulo']}</h3><p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;" data-i18n="gestor_desc">${traducciones[lang]['gestor_desc']}</p><button class="btn-premium" onclick="alertaPremium()" data-i18n="btn_activar">${traducciones[lang]['btn_activar']}</button>`;
                 }
             } else {
                 btnLogin.style.display = 'flex';
                 userProfile.style.display = 'none';
-                cajaPremium.innerHTML = `
-                    <h3 style="margin-top: 0; color: #ffffff;">Gestor de Portafolio</h3>
-                    <p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;">Guardá tu inventario completo, rastreá tus ganancias históricas y creá proyecciones a largo plazo.</p>
-                    <button class="btn-premium" onclick="alertaPremium()">Activar Premium (1 USD)</button>
-                `;
+                cajaPremium.innerHTML = `<h3 style="margin-top: 0; color: #ffffff;" data-i18n="gestor_titulo">${traducciones[lang]['gestor_titulo']}</h3><p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;" data-i18n="gestor_desc">${traducciones[lang]['gestor_desc']}</p><button class="btn-premium" onclick="alertaPremium()" data-i18n="btn_activar">${traducciones[lang]['btn_activar']}</button>`;
             }
         });
     </script>
@@ -757,7 +773,7 @@
                 document.getElementById('precioSkinTexto').style.display = "block";
 
                 document.getElementById('nombreSkinTexto').innerText = seleccion;
-                document.getElementById('precioSkinTexto').innerHTML = "Valor de mercado: <span>USD " + baseDeSkins[seleccion].precio.toFixed(2) + "</span>";
+                document.getElementById('precioSkinTexto').innerHTML = "Valor: <span>USD " + baseDeSkins[seleccion].precio.toFixed(2) + "</span>";
                 document.getElementById('precioUSD').value = baseDeSkins[seleccion].precio;
 
                 calcular();
@@ -766,7 +782,7 @@
 
         const opcionesUY = `<option value="prex_payoneer">Prex (vía Payoneer) - 2%</option><option value="prex_paypal">Prex (vía PayPal) - USD 8 + IVA</option><option value="ebrou_banco">e-Brou (Transferencia) - USD 1.50</option><option value="midinero_paypal">Midinero (vía PayPal) - 3.5%</option>`;
         const opcionesAR = `<option value="binance_p2p_ar">Binance P2P (USDT/LTC) - ~1%</option><option value="fiwind_cripto">Fiwind (Cripto a ARS) - ~1%</option><option value="belo_cripto">Belo (Cripto a ARS) - 1.5%</option><option value="lemon_cripto">Lemon Cash (Cripto a ARS) - 2%</option>`;
-        const opcionesBR = `<option value="binance_p2p_br">Binance P2P (BRL) - ~1%</option><option value="pix_exchange">Pix (vía Exchange local) - 1.5%</option><option value="mercadopago_cripto">Mercado Pago (Cripto a Pix) - ~2%</option>`;
+        const opcionesBR = `<option value="binance_p2p_br">Binance P2P (BRL) - ~1%</option><option value="pix_exchange">Pix (vía Exchange) - 1.5%</option><option value="mercadopago_cripto">Mercado Pago (Cripto) - ~2%</option>`;
 
         window.onload = function () {
             actualizarPais();
@@ -776,24 +792,21 @@
         async function actualizarPais() {
             let pais = document.getElementById('pais').value;
             let inputCotizacion = document.getElementById('cotizacionLocal');
-            inputCotizacion.value = "Cargando...";
+            inputCotizacion.value = "...";
 
             try {
                 if (pais === 'UY') {
                     document.getElementById('metodoCobro').innerHTML = opcionesUY;
-                    document.getElementById('labelCotizacion').innerText = "Cotización (UYU)";
                     let res = await fetch('https://open.er-api.com/v6/latest/USD');
                     let data = await res.json();
                     inputCotizacion.value = data.rates.UYU.toFixed(2);
                 } else if (pais === 'AR') {
                     document.getElementById('metodoCobro').innerHTML = opcionesAR;
-                    document.getElementById('labelCotizacion').innerText = "Dólar Cripto (ARS)";
                     let res = await fetch('https://dolarapi.com/v1/dolares/cripto');
                     let data = await res.json();
                     inputCotizacion.value = data.compra.toFixed(2);
                 } else if (pais === 'BR') {
                     document.getElementById('metodoCobro').innerHTML = opcionesBR;
-                    document.getElementById('labelCotizacion').innerText = "Cotización (BRL)";
                     let res = await fetch('https://open.er-api.com/v6/latest/USD');
                     let data = await res.json();
                     inputCotizacion.value = data.rates.BRL.toFixed(2);
@@ -874,25 +887,24 @@
         }
 
         function saludarAutomatico() {
-            let pais = document.getElementById('pais').value;
+            let lang = document.getElementById('selectorIdioma').value;
+            let msg = "";
             if (document.getElementById('precioUSD').value === "") {
-                if (pais === 'BR') {
-                    mostrarMensajeAvatar("Olá! Busque sua arma no catálogo ou digite o preço. Eu te digo a melhor opção de saque!");
-                } else {
-                    mostrarMensajeAvatar("¡Hola! Buscá tu arma en el catálogo o ingresá el precio a mano. ¡Te digo por dónde conviene retirar!");
-                }
+                if (lang === 'pt') msg = "Olá! Busque sua arma ou digite o preço. Eu te digo a melhor opção de saque!";
+                else if (lang === 'en') msg = "Hi! Search your weapon or enter the price. I'll tell you the best withdrawal route!";
+                else msg = "¡Hola! Buscá tu arma o ingresá el precio. ¡Te digo por dónde conviene retirar!";
+                mostrarMensajeAvatar(msg);
+            } else {
+                calcular();
             }
         }
 
         function pensarRecomendacion(saldoEnPlataforma) {
             let pais = document.getElementById('pais').value;
+            let lang = document.getElementById('selectorIdioma').value;
             let precio = parseFloat(document.getElementById('precioUSD').value);
 
-            if (isNaN(precio) || precio <= 0) {
-                document.getElementById('burbujaTexto').style.opacity = "0";
-                setTimeout(() => { document.getElementById('burbujaTexto').style.display = "none"; }, 300);
-                return;
-            }
+            if (isNaN(precio) || precio <= 0) return;
 
             let maxUsd = -1;
             let mejorMetodo = "";
@@ -924,27 +936,23 @@
                 if (usdTemp > maxUsd) { maxUsd = usdTemp; mejorMetodo = nombres[metodo]; }
             }
 
-            if (pais === 'BR') {
-                mostrarMensajeAvatar(`Para sacar esses <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, é melhor usar <span class="texto-destacado">${mejorMetodo}</span>.`);
-            } else {
-                mostrarMensajeAvatar(`Para retirar esos <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, te conviene usar <span class="texto-destacado">${mejorMetodo}</span>.`);
-            }
+            let msg = "";
+            if (lang === 'pt') msg = `Para sacar esses <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, é melhor usar <span class="texto-destacado">${mejorMetodo}</span>.`;
+            else if (lang === 'en') msg = `To withdraw those <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, you should use <span class="texto-destacado">${mejorMetodo}</span>.`;
+            else msg = `Para retirar esos <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, te conviene usar <span class="texto-destacado">${mejorMetodo}</span>.`;
+
+            mostrarMensajeAvatar(msg);
         }
 
         function alertaPremium() {
             const userProfile = document.getElementById('userProfile');
             if (userProfile.style.display === 'flex') {
-                const confirmar = confirm(
-                    "¡Hola " + document.getElementById('userName').innerText + "!\n\n" +
-                    "Vas a ser redirigido a PayPal para abonar el acceso Premium (1 USD).\n\n" +
-                    "IMPORTANTE: Asegurate de usar o indicar el mismo correo con el que iniciaste sesión acá para activar tu cuenta.\n\n" +
-                    "¿Ir a la página de pago ahora?"
-                );
-                if (confirmar) {
-                    window.open("https://www.paypal.com/ncp/payment/X4MNJBHLSMJD6", "_blank");
-                }
+                window.open("https://www.paypal.com/ncp/payment/X4MNJBHLSMJD6", "_blank");
             } else {
-                alert("Por favor, iniciá sesión con Google arriba a la derecha antes de activar el Nivel Premium.");
+                const lang = document.getElementById('selectorIdioma').value;
+                if (lang === 'pt') alert("Faça login no Google antes de ativar o Premium.");
+                else if (lang === 'en') alert("Please log in with Google before activating Premium.");
+                else alert("Por favor, iniciá sesión con Google arriba a la derecha antes de activar el Premium.");
             }
         }
     </script>
