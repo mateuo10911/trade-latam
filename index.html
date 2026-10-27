@@ -455,7 +455,7 @@
             <h2 data-i18n="terminal_titulo">Terminal de Mercado</h2>
             <div class="input-group">
                 <label data-i18n="activo_label">Activo / Arma</label>
-                <input list="listaSkins" id="buscadorSkins" placeholder="Ej: AWP Asiimov..."
+                <input list="listaSkins" id="buscadorSkins" data-i18n-ph="ph_arma" placeholder="Ej: AWP Asiimov..."
                     oninput="seleccionarSkin()">
                 <datalist id="listaSkins"></datalist>
             </div>
@@ -481,7 +481,8 @@
                 </div>
                 <div class="input-group" style="flex: 1;">
                     <label data-i18n="monto_label">Monto Venta (USD)</label>
-                    <input type="number" id="precioUSD" placeholder="0.00" oninput="calcular();">
+                    <input type="number" id="precioUSD" data-i18n-ph="ph_monto" placeholder="0.00"
+                        oninput="calcular();">
                 </div>
             </div>
             <div class="input-group">
@@ -515,7 +516,8 @@
             <div style="flex: 1; min-width: 250px;">
                 <div class="input-group">
                     <label data-i18n="compra_label">¿A cuánto compraste el arma? (USD)</label>
-                    <input type="number" id="precioCompra" placeholder="0.00" oninput="calcularROI()">
+                    <input type="number" id="precioCompra" data-i18n-ph="ph_compra" placeholder="0.00"
+                        oninput="calcularROI()">
                 </div>
                 <div class="resultados" style="margin-top: 15px; border-top: none; padding-top: 0;">
                     <label data-i18n="ganancia_label">Ganancia/Pérdida (Limpia):</label>
@@ -551,7 +553,8 @@
                 roi_titulo: "Simulador de Rentabilidad (ROI)", roi_desc: "Calcula tu ganancia real cruzando tu inversión inicial con el precio de venta actual, descontando automáticamente todas las comisiones de retiro.",
                 compra_label: "¿A cuánto compraste el arma? (USD)", ganancia_label: "Ganancia/Pérdida (Limpia):", rentabilidad_label: "Rentabilidad (ROI):",
                 gestor_titulo: "Gestor de Portafolio", gestor_desc: "Guardá tu inventario completo, rastreá tus ganancias históricas y creá proyecciones a largo plazo.",
-                btn_activar: "Activar Premium (1 USD)", btn_guardar: "Guardar Simulación Actual", premium_activado: "✓ Nivel Premium Activado", sin_simulaciones: "No hay simulaciones guardadas todavía."
+                btn_activar: "Activar Premium (1 USD)", btn_guardar: "Guardar Simulación Actual", premium_activado: "✓ Nivel Premium Activado", sin_simulaciones: "No hay simulaciones guardadas todavía.",
+                ph_arma: "Ej: AWP Asiimov...", ph_monto: "0.00", ph_compra: "0.00"
             },
             pt: {
                 iniciar_sesion: "Entrar", salir: "Sair", terminal_titulo: "Terminal de Mercado",
@@ -562,7 +565,8 @@
                 roi_titulo: "Simulador de Rentabilidade (ROI)", roi_desc: "Calcule seu lucro real cruzando seu investimento inicial com o preço de venda atual, deduzindo automaticamente todas as taxas de saque.",
                 compra_label: "Por quanto comprou a arma? (USD)", ganancia_label: "Lucro/Perda (Líquido):", rentabilidad_label: "Rentabilidade (ROI):",
                 gestor_titulo: "Gestor de Portfólio", gestor_desc: "Salve seu inventário completo, acompanhe seus lucros históricos e crie projeções de longo prazo.",
-                btn_activar: "Ativar Premium (1 USD)", btn_guardar: "Salvar Simulação Atual", premium_activado: "✓ Nível Premium Ativado", sin_simulaciones: "Nenhuma simulação salva ainda."
+                btn_activar: "Ativar Premium (1 USD)", btn_guardar: "Salvar Simulação Atual", premium_activado: "✓ Nível Premium Ativado", sin_simulaciones: "Nenhuma simulação salva ainda.",
+                ph_arma: "Ex: AWP Asiimov...", ph_monto: "0.00", ph_compra: "0.00"
             },
             en: {
                 iniciar_sesion: "Login", salir: "Logout", terminal_titulo: "Market Terminal",
@@ -573,23 +577,29 @@
                 roi_titulo: "ROI Simulator", roi_desc: "Calculate your real profit by cross-referencing your initial investment with the current sale price, automatically deducting all withdrawal fees.",
                 compra_label: "Purchase price? (USD)", ganancia_label: "Profit/Loss (Net):", rentabilidad_label: "Return on Investment (ROI):",
                 gestor_titulo: "Portfolio Manager", gestor_desc: "Save your complete inventory, track your historical profits, and create long-term projections.",
-                btn_activar: "Activate Premium (1 USD)", btn_guardar: "Save Current Simulation", premium_activado: "✓ Premium Level Activated", sin_simulaciones: "No saved simulations yet."
+                btn_activar: "Activate Premium (1 USD)", btn_guardar: "Save Current Simulation", premium_activado: "✓ Premium Level Activated", sin_simulaciones: "No saved simulations yet.",
+                ph_arma: "Ex: AWP Asiimov...", ph_monto: "0.00", ph_compra: "0.00"
             }
         };
 
         function cambiarIdioma() {
             const lang = document.getElementById('selectorIdioma').value;
+
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if (traducciones[lang][key]) {
-                    el.innerHTML = traducciones[lang][key];
-                }
+                if (traducciones[lang][key]) el.innerHTML = traducciones[lang][key];
             });
+
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (traducciones[lang][key]) el.placeholder = traducciones[lang][key];
+            });
+
             saludarAutomatico();
         }
     </script>
 
-    <!-- SCRIPT DE FIREBASE -->
+    <!-- SCRIPT DE FIREBASE Y LOGICA UNIFICADA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
@@ -670,7 +680,6 @@
                     const btn = document.getElementById('btnGuardar');
                     btn.innerText = "...";
                     btn.disabled = true;
-
                     const skin = document.getElementById('buscadorSkins').value || "Ingreso Manual";
                     const precioVenta = document.getElementById('precioUSD').value;
                     const precioCompra = document.getElementById('precioCompra').value || 0;
@@ -680,21 +689,11 @@
 
                     try {
                         await addDoc(collection(db, "usuarios", userId, "simulaciones"), {
-                            arma: skin,
-                            ventaUSD: precioVenta,
-                            compraUSD: precioCompra,
-                            viaRetiro: metodo,
-                            gananciaNeta: usdNeto,
-                            fecha: new Date().toISOString()
+                            arma: skin, ventaUSD: precioVenta, compraUSD: precioCompra, viaRetiro: metodo, gananciaNeta: usdNeto, fecha: new Date().toISOString()
                         });
                         btn.style.backgroundColor = "#00e676";
-                        setTimeout(() => {
-                            cargarHistorialSimulaciones(userId, contenedor);
-                        }, 1500);
-                    } catch (error) {
-                        console.error(error);
-                        btn.disabled = false;
-                    }
+                        setTimeout(() => { cargarHistorialSimulaciones(userId, contenedor); }, 1500);
+                    } catch (error) { console.error(error); btn.disabled = false; }
                 });
             } catch (e) { console.error(e); }
         }
@@ -715,7 +714,6 @@
 
                 const userRef = doc(db, "usuarios", user.uid);
                 let userSnap = await getDoc(userRef);
-
                 if (!userSnap.exists()) {
                     await setDoc(userRef, { nombre: user.displayName, email: user.email, isPremium: false });
                     userSnap = await getDoc(userRef);
@@ -732,6 +730,19 @@
                 cajaPremium.innerHTML = `<h3 style="margin-top: 0; color: #ffffff;" data-i18n="gestor_titulo">${traducciones[lang]['gestor_titulo']}</h3><p style="color: #8a8a96; font-size: 14px; margin-bottom: 20px;" data-i18n="gestor_desc">${traducciones[lang]['gestor_desc']}</p><button class="btn-premium" onclick="alertaPremium()" data-i18n="btn_activar">${traducciones[lang]['btn_activar']}</button>`;
             }
         });
+
+        // Exponer la alerta a nivel global para que funcione el onclick del HTML
+        window.alertaPremium = function () {
+            const userProfile = document.getElementById('userProfile');
+            if (userProfile.style.display === 'flex') {
+                window.open("https://www.paypal.com/ncp/payment/X4MNJBHLSMJD6", "_blank");
+            } else {
+                const lang = document.getElementById('selectorIdioma').value;
+                if (lang === 'pt') alert("Faça login no Google antes de ativar o Premium.");
+                else if (lang === 'en') alert("Please log in with Google before activating Premium.");
+                else alert("Por favor, iniciá sesión con Google arriba a la derecha antes de activar el Premium.");
+            }
+        };
     </script>
 
     <!-- SCRIPT DE LA CALCULADORA -->
@@ -942,18 +953,6 @@
             else msg = `Para retirar esos <span class="texto-destacado">USD ${saldoEnPlataforma.toFixed(2)}</span>, te conviene usar <span class="texto-destacado">${mejorMetodo}</span>.`;
 
             mostrarMensajeAvatar(msg);
-        }
-
-        function alertaPremium() {
-            const userProfile = document.getElementById('userProfile');
-            if (userProfile.style.display === 'flex') {
-                window.open("https://www.paypal.com/ncp/payment/X4MNJBHLSMJD6", "_blank");
-            } else {
-                const lang = document.getElementById('selectorIdioma').value;
-                if (lang === 'pt') alert("Faça login no Google antes de ativar o Premium.");
-                else if (lang === 'en') alert("Please log in with Google before activating Premium.");
-                else alert("Por favor, iniciá sesión con Google arriba a la derecha antes de activar el Premium.");
-            }
         }
     </script>
 </body>
